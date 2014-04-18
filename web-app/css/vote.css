@@ -1,0 +1,25 @@
+.form-signin{
+    padding:10px;
+    width:300px;
+    margin:0 auto;
+}
+.signin-wrapper{
+    width:100%;
+    background-color:#e3ebec;
+}
+#logo-big{
+    font-weight:bold;
+    font-size:40pt;
+    color:#27a;
+}
+#logo-des{
+    color:#27a;
+    font-size:20pt;
+}
+.logo-wrapper{
+    top:55px;
+}
+.half-form-control{
+    display:inline-block;
+    width:138px;
+}
