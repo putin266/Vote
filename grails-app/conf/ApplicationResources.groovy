@@ -8,5 +8,7 @@ modules = {
 
         resource url: 'js/jquery-1.11.0.min.js'
         resource url: 'js/bootstrap.js'
+        resource url: 'js/holder.min.js'
+        resource url: 'js/vote.js'
     }
 }

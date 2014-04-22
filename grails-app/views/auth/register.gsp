@@ -1,6 +1,6 @@
 <html>
 <head>
-    <meta name="layout" content="index" />
+    <meta name="layout" content="login" />
     <title>Sign Up</title>
 </head>
 <body>

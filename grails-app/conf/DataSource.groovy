@@ -17,7 +17,7 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create"
+            dbCreate = "create-drop"
             url = "jdbc:mysql://localhost:3306/vote"
             driverClassName = "com.mysql.jdbc.Driver"
             username = "root"

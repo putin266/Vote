@@ -36,8 +36,8 @@
       <index name="FK3498A0F7634DFA" unique="false" columns="user_id"/>
     </table>
     <table name="post_tags" schema="" catalog="hubbub" type="TABLE">
-      <column name="post_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="tag_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="post_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="post_id,tag_id"/>
       <foreign-key name="FK7762B858CB7A9B5A" columns="tag_id" ref-table="tag" ref-schema="" ref-catalog="hubbub" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK7762B858E8D4A1DA" columns="post_id" ref-table="post" ref-schema="" ref-catalog="hubbub" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -90,8 +90,8 @@
       <index name="FK34555A9EADE50EFD" unique="false" columns="shiro_user_id"/>
     </table>
     <table name="shiro_user_roles" schema="" catalog="hubbub" type="TABLE">
-      <column name="shiro_role_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="shiro_user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="shiro_role_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="shiro_user_id,shiro_role_id"/>
       <foreign-key name="FKBA2210578BA4B1D" columns="shiro_role_id" ref-table="shiro_role" ref-schema="" ref-catalog="hubbub" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKBA221057ADE50EFD" columns="shiro_user_id" ref-table="shiro_user" ref-schema="" ref-catalog="hubbub" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -120,16 +120,16 @@
       <foreign-key name="FK36EBCBF0E3CFA" columns="profile_id" ref-table="profile" ref-schema="" ref-catalog="hubbub" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FK3498A0F7634DFA" table="post" schema="" catalog="hubbub" columns="user_id"/>
       <exported-key name="FK1BF9AF7634DFA" table="tag" schema="" catalog="hubbub" columns="user_id"/>
-      <exported-key name="FK143D5FBFF7634DFA" table="user_user" schema="" catalog="hubbub" columns="user_id"/>
       <exported-key name="FK143D5FBF5424C968" table="user_user" schema="" catalog="hubbub" columns="user_following_id"/>
+      <exported-key name="FK143D5FBFF7634DFA" table="user_user" schema="" catalog="hubbub" columns="user_id"/>
       <index name="user_id" unique="true" columns="user_id"/>
       <index name="FK36EBCBF0E3CFA" unique="false" columns="profile_id"/>
     </table>
     <table name="user_user" schema="" catalog="hubbub" type="TABLE">
       <column name="user_following_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <foreign-key name="FK143D5FBFF7634DFA" columns="user_id" ref-table="user" ref-schema="" ref-catalog="hubbub" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK143D5FBF5424C968" columns="user_following_id" ref-table="user" ref-schema="" ref-catalog="hubbub" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK143D5FBFF7634DFA" columns="user_id" ref-table="user" ref-schema="" ref-catalog="hubbub" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="FK143D5FBF5424C968" unique="false" columns="user_following_id"/>
       <index name="FK143D5FBFF7634DFA" unique="false" columns="user_id"/>
     </table>
@@ -2569,40 +2569,66 @@
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="FKEAD9D23B26BF9265" table="role_permissions" schema="" catalog="vote" columns="role_id"/>
-      <exported-key name="FK7342994926BF9265" table="user_roles" schema="" catalog="vote" columns="role_id"/>
+      <exported-key name="FKEAD9D23B5B9AB29E" table="role_permissions" schema="" catalog="vote" columns="role_id"/>
+      <exported-key name="FK734299495B9AB29E" table="user_roles" schema="" catalog="vote" columns="role_id"/>
       <index name="name" unique="true" columns="name"/>
     </table>
     <table name="role_permissions" schema="" catalog="vote" type="TABLE">
       <column name="role_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="permissions_string" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <foreign-key name="FKEAD9D23B26BF9265" columns="role_id" ref-table="role" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="FKEAD9D23B26BF9265" unique="false" columns="role_id"/>
+      <foreign-key name="FKEAD9D23B5B9AB29E" columns="role_id" ref-table="role" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKEAD9D23B5B9AB29E" unique="false" columns="role_id"/>
+    </table>
+    <table name="site" schema="" catalog="vote" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="is_public" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FKE036821186B4F4FE" table="site_tags" schema="" catalog="vote" columns="site_id"/>
+    </table>
+    <table name="site_tags" schema="" catalog="vote" type="TABLE">
+      <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="tag_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="site_id,tag_id"/>
+      <foreign-key name="FKE036821168AF5256" columns="tag_id" ref-table="tag" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKE036821186B4F4FE" columns="site_id" ref-table="site" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKE036821168AF5256" unique="false" columns="tag_id"/>
+      <index name="FKE036821186B4F4FE" unique="false" columns="site_id"/>
+    </table>
+    <table name="tag" schema="" catalog="vote" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FKE036821168AF5256" table="site_tags" schema="" catalog="vote" columns="tag_id"/>
     </table>
     <table name="user" schema="" catalog="vote" type="TABLE">
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="firstname" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="password_hash" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="FKE693E610CBEA5645" table="user_permissions" schema="" catalog="vote" columns="user_id"/>
-      <exported-key name="FK73429949CBEA5645" table="user_roles" schema="" catalog="vote" columns="user_id"/>
+      <exported-key name="FKE693E610C5767E" table="user_permissions" schema="" catalog="vote" columns="user_id"/>
+      <exported-key name="FK73429949C5767E" table="user_roles" schema="" catalog="vote" columns="user_id"/>
       <index name="username" unique="true" columns="username"/>
     </table>
     <table name="user_permissions" schema="" catalog="vote" type="TABLE">
       <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="permissions_string" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <foreign-key name="FKE693E610CBEA5645" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="FKE693E610CBEA5645" unique="false" columns="user_id"/>
+      <foreign-key name="FKE693E610C5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKE693E610C5767E" unique="false" columns="user_id"/>
     </table>
     <table name="user_roles" schema="" catalog="vote" type="TABLE">
       <column name="role_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="user_id,role_id"/>
-      <foreign-key name="FK73429949CBEA5645" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="FK7342994926BF9265" columns="role_id" ref-table="role" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="FK7342994926BF9265" unique="false" columns="role_id"/>
-      <index name="FK73429949CBEA5645" unique="false" columns="user_id"/>
+      <foreign-key name="FK73429949C5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK734299495B9AB29E" columns="role_id" ref-table="role" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK734299495B9AB29E" unique="false" columns="role_id"/>
+      <index name="FK73429949C5767E" unique="false" columns="user_id"/>
     </table>
     <table name="city" schema="" catalog="world" type="TABLE">
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>

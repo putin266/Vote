@@ -1,26 +1,19 @@
-body{
-    padding-top: 70px;
-    padding-bottom: 30px;
-}
 .form-signin{
     padding:10px;
     width:300px;
     margin:0 auto;
-    color:#fff;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
 }
 .signin-wrapper{
     width:100%;
-    background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
-    background-repeat: repeat-x;
+    background-color:#e3ebec;
 }
 #logo-big{
     font-weight:bold;
     font-size:40pt;
-    color:#fff;
+    color:#27a;
 }
 #logo-des{
-    color:#fff;
+    color:#27a;
     font-size:20pt;
 }
 .logo-wrapper{
@@ -29,7 +22,4 @@ body{
 .half-form-control{
     display:inline-block;
     width:138px;
-}
-#searchbox{
-    padding:10px 0;
 }

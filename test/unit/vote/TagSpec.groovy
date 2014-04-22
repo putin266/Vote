@@ -1,14 +1,13 @@
-package edu.tongji.ethan
+package vote
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
-import vote.Role
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Role)
-class RoleSpec extends Specification {
+@TestFor(Tag)
+class TagSpec extends Specification {
 
     def setup() {
     }

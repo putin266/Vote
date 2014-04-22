@@ -1,4 +1,4 @@
-package edu.tongji.ethan
+package vote
 
 class User {
     String username
@@ -6,7 +6,7 @@ class User {
     String firstname
     String lastname
 
-    static hasMany = [ roles: Role, permissions: String ]
+    static hasMany = [ roles: Role, permissions: String,sites: Site ]
 
     static constraints = {
         username(nullable: false, blank: false, unique: true, email: true)

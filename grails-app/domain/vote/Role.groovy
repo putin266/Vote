@@ -1,4 +1,4 @@
-package edu.tongji.ethan
+package vote
 
 class Role {
     String name

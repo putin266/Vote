@@ -1,4 +1,4 @@
-package edu.tongji.ethan
+package vote
 
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
@@ -13,21 +13,21 @@ class AuthController {
     def index = { redirect(action: "login", params: params) }
 
     def login = {
-        if (session.getAttribute("userid")){
+        if (SecurityUtils.getSubject().authenticated){
             redirect(uri: "/")
         }
         return [ username: params.username, rememberMe: (params.rememberMe != null), targetUri: params.targetUri ]
     }
 
     def register = {
-        if (session.getAttribute("userid")){
+        if (SecurityUtils.getSubject().authenticated){
             redirect(uri: "/")
         }
         return [ username: params.username, targetUri: params.targetUri ]
     }
 
     def signIn = {
-        if (session.getAttribute("userid")){
+        if (SecurityUtils.getSubject().authenticated){
             redirect(uri: "/")
         }
 
@@ -54,7 +54,7 @@ class AuthController {
             // will be thrown if the username is unrecognised or the
             // password is incorrect.
             SecurityUtils.subject.login(authToken)
-            session.setAttribute("userid",User.findByUsername(params.username as String))
+            session.setAttribute("user",User.findByUsername(params.username as String))
             log.info "Redirecting to '${targetUri}'."
             redirect(uri: targetUri)
         }
@@ -83,7 +83,7 @@ class AuthController {
 
     def signUp = {
 
-        if (session.getAttribute("userid")){
+        if (SecurityUtils.getSubject().authenticated){
             redirect(uri: "/")
         }
 
@@ -104,7 +104,7 @@ class AuthController {
                 def user = new User(username: params.username, passwordHash: new Sha512Hash(params.password).toHex(),firstname: params.firstname,lastname: params.lastname)
                 if(user.validate()){
                     if(user.save()){
-                        session.setAttribute("userid",user.getId())
+                        session.setAttribute("user",user)
                         redirect(uri: "/")
                     }else{
                         user.discard()
@@ -127,12 +127,12 @@ class AuthController {
         // Log the user out of the application.
         SecurityUtils.subject?.logout()
         webRequest.getCurrentRequest().session = null
-
+        session.removeAttribute("user")
         // For now, redirect back to the home page.
         redirect(uri: "/")
     }
 
     def unauthorized = {
-        render "You do not have permission to access this page."
+        redirect(action: "login")
     }
 }
