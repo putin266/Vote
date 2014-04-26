@@ -38,13 +38,13 @@
                             <li><g:link controller="site" action="mysites">Site</g:link></li>
                         </g:else>
                         <g:if test="${controllerName == "explore"}">
-                            <li class="active"><g:link href="#contact">Explore</g:link></li>
+                            <li class="active"><g:link controller="explore" action="index">Explore</g:link></li>
                         </g:if>
                         <g:else>
-                            <li><g:link href="#contact">Explore</g:link></li>
+                            <li><g:link controller="explore" action="index">Explore</g:link></li>
                         </g:else>
                         <g:if test="${controllerName == "message"}">
-                            <li class="active"><g:link href="#contact"><span
+                            <li class="active"><g:link href="#"><span
                                     class="badge pull-right">42</span>Message</g:link></li>
                         </g:if>
                         <g:else>

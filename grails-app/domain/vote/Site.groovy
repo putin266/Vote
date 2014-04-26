@@ -6,7 +6,7 @@ class Site {
     String description
 
     static belongsTo = [User]
-    static hasMany = [tags : Tag,users: User]
+    static hasMany = [tags : Tag,users: User,trans: SiteTrans]
     static constraints = {
         name(blank: false)
         description(blank: false)

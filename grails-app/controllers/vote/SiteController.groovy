@@ -9,11 +9,45 @@ class SiteController {
     def mysites() {
         def user = User.findById(session.user.id as Long)
         def siteslist = user?.sites
-        [siteslist:siteslist]
+        def trans = SiteTrans.findAll {type == "AddNewUser" && status == "Open" && targetUser == user}
+        def appliedsites = new ArrayList()
+        trans.each {appliedsites.add(it.site)}
+        [siteslist:siteslist,appliedsites:appliedsites]
     }
 
     def newsite() {
 
+    }
+
+    def follow(){
+        def site = Site.findById(params.id as Long)
+        def user = User.findById(session.user.id as Long)
+        if(user){
+            if(user.sites.contains(site)){
+                flash.message = "The site has been followed"
+            }else{
+                def sitetrans = new SiteTrans(type: "AddNewUser",status: "Open",site: site,targetUser: user)
+                if (SiteTrans.find {type=="AddNewUser" && status=="Open" && targetUser == user}){
+                    flash.message = "The apply has been sent before! Please wait for the confirm."
+                    redirect(action: "mysites")
+                    return
+                }
+                if(sitetrans){
+                    sitetrans.save()
+                    flash.message = "The apply has been sent! Please wait for the confirm."
+                    redirect(action: "mysites")
+                    return
+                }else{
+                    flash.error = "Follow Failed, Please Try Again"
+                    redirect(action: "mysites")
+                    return
+                }
+            }
+        }else{
+            flash.error = "Not login"
+            redirect(controller: "auth",action: "login")
+            return
+        }
     }
 
     def create() {
