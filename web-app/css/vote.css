@@ -33,3 +33,11 @@ body{
 #searchbox{
     padding:10px 0;
 }
+.sitethumbnail{
+    text-align: center;
+}
+.glyphicon{
+    font-weight: bold;
+ 
+    font-size: 10pt;
+}

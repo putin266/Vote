@@ -19,7 +19,7 @@
             <div class="page-header">
                 <h3>Followed Sites</h3>
             </div>
-<g:render template="siteslist" var="sites" collection="${siteslist}" />
+<g:render template="/common/siteslist" model="[sites:siteslist,appliedsites:appliedsites]" />
         </div>
         <div class="col-xs-3">
             <div class="page-header">
