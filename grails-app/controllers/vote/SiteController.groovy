@@ -3,7 +3,15 @@ package vote
 class SiteController {
 
     def index() {
-        redirect(action: "mysites")
+        if (!params.id){
+            redirect(action: "mysites")
+        }else{
+            def site = Site.findById(params.id)
+            def user = User.findById(session.user.id as Long)
+            def flag = site.users.contains(user)
+            [site:site,accepted:flag]
+        }
+
     }
 
     def mysites() {
@@ -15,9 +23,12 @@ class SiteController {
         [siteslist:siteslist,appliedsites:appliedsites]
     }
 
+
     def newsite() {
 
     }
+
+
 
     def follow(){
         def site = Site.findById(params.id as Long)
@@ -27,7 +38,7 @@ class SiteController {
                 flash.message = "The site has been followed"
             }else{
                 def sitetrans = new SiteTrans(type: "AddNewUser",status: "Open",site: site,targetUser: user)
-                if (SiteTrans.find {type=="AddNewUser" && status=="Open" && targetUser == user}){
+                if (SiteTrans.find {type=="AddNewUser" && status=="Open" && targetUser == user && site == site}){
                     flash.message = "The apply has been sent before! Please wait for the confirm."
                     redirect(action: "mysites")
                     return
