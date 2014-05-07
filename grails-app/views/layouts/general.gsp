@@ -12,9 +12,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><g:layoutTitle default="Vote"/></title>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'vote.css')}" type="text/css">
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-theme.css')}" type="text/css">
+    <r:require module="votecss"></r:require>
     <g:layoutHead/>
     <r:require module="votejs"/>
     <r:layoutResources />

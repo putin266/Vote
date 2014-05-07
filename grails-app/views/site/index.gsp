@@ -25,16 +25,10 @@
                 <h3>&nbsp</h3>
             </div>
             <g:if test="${accepted}">
-            <h4>Create</h4>
             <div class="form-group">
-            <g:link type="button" class="btn btn-lg btn-info" controller="site" action="newsite">Discussion</g:link>
+            <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newTopic">Create Topic</button>
             </div>
-            <div class="form-group">
-            <g:link type="button" class="btn btn-lg btn-info" controller="site" action="newsite">Question</g:link>
-            </div>
-            <div class="form-group">
-            <g:link type="button" class="btn btn-lg btn-info" controller="site" action="newsite">Resource</g:link>
-            </div>
+            <g:render template="/common/newtopic"></g:render>
             </g:if>
             <g:else>
                 <g:link class="btn btn-primary" controller="site" action="follow" id="${site.id}"><span class="glyphicon glyphicon-plus"></span>Follow</g:link>

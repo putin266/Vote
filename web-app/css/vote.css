@@ -44,3 +44,4 @@ body{
 a.h4,a:hover.h4,a:visited.h4{
     text-decoration: none;
 }
+#editor {overflow:scroll; max-height:300px;height:150px}
