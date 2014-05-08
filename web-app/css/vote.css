@@ -1,47 +1,74 @@
-body{
+body {
     padding-top: 70px;
     padding-bottom: 30px;
 }
-.form-signin{
-    padding:10px;
-    width:300px;
-    margin:0 auto;
-    color:#fff;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+
+.form-signin {
+    padding: 10px;
+    width: 300px;
+    margin: 0 auto;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
-.signin-wrapper{
-    width:100%;
-    background-image: linear-gradient(to bottom,#3c3c3c 0,#222 100%);
+
+.signin-wrapper {
+    width: 100%;
+    background-image: linear-gradient(to bottom, #3c3c3c 0, #222 100%);
     background-repeat: repeat-x;
 }
-#logo-big{
-    font-weight:bold;
-    font-size:40pt;
-    color:#fff;
+
+#logo-big {
+    font-weight: bold;
+    font-size: 40pt;
+    color: #fff;
 }
-#logo-des{
-    color:#fff;
-    font-size:20pt;
+
+#logo-des {
+    color: #fff;
+    font-size: 20pt;
 }
-.logo-wrapper{
-    top:55px;
+
+.logo-wrapper {
+    top: 55px;
 }
-.half-form-control{
-    display:inline-block;
-    width:138px;
+
+.half-form-control {
+    display: inline-block;
+    width: 138px;
 }
-#searchbox{
-    padding:10px 0;
+
+#searchbox {
+    padding: 10px 0;
 }
-.sitethumbnail{
+
+.sitethumbnail {
     text-align: center;
 }
-.glyphicon{
+
+.glyphicon {
     font-weight: bold;
- 
+
     font-size: 10pt;
 }
-a.h4,a:hover.h4,a:visited.h4{
+
+a.h4, a:hover.h4, a:visited.h4 {
     text-decoration: none;
 }
-#editor {overflow:scroll; max-height:300px;height:150px}
+
+#editor {
+    max-height: 250px;
+    height: 250px;
+    background-color: white;
+    border-collapse: separate;
+    border: 1px solid rgb(204, 204, 204);
+    padding: 4px;
+    box-sizing: content-box;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    overflow: auto;
+    outline: none;
+}

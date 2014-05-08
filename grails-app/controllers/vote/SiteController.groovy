@@ -25,10 +25,12 @@ class SiteController {
 
 
     def newsite() {
-
     }
 
 
+    def newtopic(){
+        render(params.optionsRadios + " " + params.editorcontent)
+    }
 
     def follow(){
         def site = Site.findById(params.id as Long)

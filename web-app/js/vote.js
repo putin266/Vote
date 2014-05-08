@@ -143,7 +143,11 @@
             };
         }
 
-        $('input[type=file]').bootstrapFileInput();
+        //$('input[type=file]').bootstrapFileInput();
         $('.file-inputs').bootstrapFileInput();
         $('#editor').wysiwyg();
     })
+
+function setEditorContent(){
+    $('#editorcontent').val($('#editor').cleanHtml());
+}
