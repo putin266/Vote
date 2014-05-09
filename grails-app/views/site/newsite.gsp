@@ -20,7 +20,7 @@
                 <h3>Create a new site</h3>
             </div>
 
-            <form role="form">
+            <g:form role="form" controller="site" action="create">
                 <div class="form-group">
                     <label for="sitetypeoptions">Site type</label>
                     <div id="sitetypeoptions" class="radio">
@@ -68,8 +68,8 @@
                         <g:checkBox type="checkbox" name="agreed" value="${params.agreed}"/>
                         <label>I confirm the information is correct</label>
                 </div>
-                <g:actionSubmit  class="btn btn-primary" value="Create" action="create"></g:actionSubmit>
-            </form>
+                <g:submitButton name="submit" class="btn btn-primary" value="Create"></g:submitButton>
+            </g:form>
 
         </div>
         <div class="col-xs-3">

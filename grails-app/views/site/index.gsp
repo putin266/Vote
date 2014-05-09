@@ -19,6 +19,7 @@
             <div class="page-header">
                 <h3>Topics</h3>
             </div>
+            <g:render template="/common/topiclist" model="[topics: topiclist]"></g:render>
         </div>
         <div class="col-xs-3">
             <div class="page-header">

@@ -9,7 +9,8 @@ class SiteController {
             def site = Site.findById(params.id)
             def user = User.findById(session.user.id as Long)
             def flag = site.users.contains(user)
-            [site:site,accepted:flag]
+            def topiclist = site.topics
+            [site:site,accepted:flag,topiclist:topiclist]
         }
 
     }
@@ -27,9 +28,33 @@ class SiteController {
     def newsite() {
     }
 
-
     def newtopic(){
-        render(params.optionsRadios + " " + params.editorcontent)
+        def user = User.findById(session.user.id as Long)
+        def site = Site.findById(params.siteid as Long)
+        def topic = new Topic(title: params.title,type: params.topicType)
+        def flag = false
+        if("information".equals(params.topicType)){
+            flag = true
+        }
+        def topicdetail = new Content(content: params.editorcontent,type: "detail",candidate: flag,createTime: new Date(System.currentTimeMillis()))
+        TagService.strToTagList(params.tags as String).each {topic.addToTags(it)}
+        user.addToContents(topicdetail)
+        topic.addToContents(topicdetail)
+        site.addToTopics(topic)
+        topic.lastUpdateTime = new Date(System.currentTimeMillis())
+        if(topic?.validate() && topicdetail?.validate() && user && site){
+            topic.save()
+            topicdetail.save()
+            user.save()
+            site.save()
+            flash.message = "New Topic Created"
+            redirect(action: "index",id: params.siteid)
+            return
+        }else{
+            flash.error = "System error occurs, Please try later"
+            redirect(action: "index",id: params.siteid)
+        }
+
     }
 
     def follow(){
@@ -64,7 +89,6 @@ class SiteController {
     }
 
     def create() {
-        params.remove("_action_create")
         if (!params.get("agreed").equals("on")) {
             flash.error = "Not confirmed"
             redirect(action:"newsite",params: params)
@@ -79,30 +103,7 @@ class SiteController {
             redirect(action:"newsite",params: params)
             return
         }
-        String tagstr = params.tags as String
-        if (tagstr != null && tagstr != "") {
-            def tag = tagstr.split(" ")
-            def tempTag
-            tag.each {
-                tempTag = Tag.findByName(it)
-                if (tempTag) {
-                    newsite.addToTags(tempTag)
-                } else {
-                    tempTag = new Tag(name: it)
-                    if (tempTag?.validate()) {
-                        tempTag.save()
-                        log.info("Tag" + it + "Saved Successfully")
-                        newsite.addToTags(tempTag)
-                    } else {
-                        tempTag.discard()
-                        log.error("Tag" + it + " saved failed")
-                        flash.error = "Tag" + it + " saved failed"
-                        redirect(action:"newsite",params: params)
-                        return
-                    }
-                }
-            }
-        }
+        TagService.strToTagList(params.tags as String).each {newsite.addToTags(it)}
         if (newsite.validate()) {
             newsite.save()
             log.info("Site " + newsite.name + " has been saved successfully")

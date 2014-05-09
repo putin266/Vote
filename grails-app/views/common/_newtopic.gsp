@@ -11,16 +11,16 @@
                         <label>Topic Type</label>
                         <br>
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="discussion" checked>
+                            <g:radio type="radio" name="topicType" value="discussion" checked="true"></g:radio>
                             Discussion
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="question">
+                            <g:radio type="radio" name="topicType" value="question"></g:radio>
                             Question
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="resources">
-                            Resources
+                            <g:radio type="radio" name="topicType" value="information"></g:radio>
+                            Information
                         </label>
                     </div>
                     <div class="form-group">
@@ -38,6 +38,7 @@
                         <g:textField class="form-control" name="tags"/>
                     </div>
                 </div>
+                <g:hiddenField name="siteid" value="${params.id}"></g:hiddenField>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

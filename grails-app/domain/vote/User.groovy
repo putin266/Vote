@@ -6,7 +6,7 @@ class User {
     String firstname
     String lastname
 
-    static hasMany = [ roles: Role, permissions: String,sites: Site,sitetrans: SiteTrans,usertrans: UserTrans ]
+    static hasMany = [ roles: Role, permissions: String,sites: Site,sitetrans: SiteTrans,usertrans: UserTrans,contents:Content,votes: Vote,comments:Comment]
 
     static constraints = {
         username(nullable: false, blank: false, unique: true, email: true)
