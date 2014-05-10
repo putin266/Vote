@@ -15,7 +15,9 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-xs-9">
+        <div class="col-xs-1">
+        </div>
+        <div class="col-xs-8">
             <div class="page-header">
                 <h3>Create a new site</h3>
             </div>

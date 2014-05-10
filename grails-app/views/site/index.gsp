@@ -15,11 +15,13 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-xs-9">
+        <div class="col-xs-1">
+        </div>
+        <div class="col-xs-8">
             <div class="page-header">
                 <h3>Topics</h3>
             </div>
-            <g:render template="/common/topiclist" model="[topics: topiclist]"></g:render>
+            <g:render template="/topic/topiclist" model="[topics: topiclist]"></g:render>
         </div>
         <div class="col-xs-3">
             <div class="page-header">
@@ -29,7 +31,7 @@
             <div class="form-group">
             <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newTopic">Create Topic</button>
             </div>
-            <g:render template="/common/newtopic"></g:render>
+            <g:render template="/site/newtopic"></g:render>
             </g:if>
             <g:else>
                 <g:link class="btn btn-primary" controller="site" action="follow" id="${site.id}"><span class="glyphicon glyphicon-plus"></span>Follow</g:link>

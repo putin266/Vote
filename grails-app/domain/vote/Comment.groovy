@@ -2,10 +2,11 @@ package vote
 
 
 class Comment {
-    String content
+    String comment
     Date createTime
+    Content content
+    User user
     static belongsTo = [Content,User]
-    static hasOne = [content:Content,user:User]
     static constraints = {
     }
 }

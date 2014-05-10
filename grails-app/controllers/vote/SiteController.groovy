@@ -31,27 +31,23 @@ class SiteController {
     def newtopic(){
         def user = User.findById(session.user.id as Long)
         def site = Site.findById(params.siteid as Long)
-        def topic = new Topic(title: params.title,type: params.topicType)
         def flag = false
         if("information".equals(params.topicType)){
             flag = true
         }
-        def topicdetail = new Content(content: params.editorcontent,type: "detail",candidate: flag,createTime: new Date(System.currentTimeMillis()))
+        def topic = new Topic(title: params.title,type: params.topicType,detail: params.editorcontent,candidate: flag,createTime: TimeService.currentTime(),user:user)
         TagService.strToTagList(params.tags as String).each {topic.addToTags(it)}
-        user.addToContents(topicdetail)
-        topic.addToContents(topicdetail)
         site.addToTopics(topic)
-        topic.lastUpdateTime = new Date(System.currentTimeMillis())
-        if(topic?.validate() && topicdetail?.validate() && user && site){
-            topic.save()
-            topicdetail.save()
+        user.addToTopics(topic)
+        topic.lastUpdateTime = TimeService.currentTime()
+        if(topic?.validate() && user && site){
             user.save()
             site.save()
             flash.message = "New Topic Created"
             redirect(action: "index",id: params.siteid)
             return
         }else{
-            flash.error = "System error occurs, Please try later"
+            flash.error = "System error occurs, Please try later" + "\ntopic errors:" +  topic.errors
             redirect(action: "index",id: params.siteid)
         }
 

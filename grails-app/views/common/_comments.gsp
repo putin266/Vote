@@ -1,0 +1,1 @@
+${comments.size()}&nbsp;Comments

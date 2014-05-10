@@ -15,11 +15,13 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-xs-9">
+        <div class="col-xs-1">
+        </div>
+        <div class="col-xs-8">
             <div class="page-header">
                 <h3>Followed Sites</h3>
             </div>
-<g:render template="/common/siteslist" model="[sites:siteslist,appliedsites:appliedsites]" />
+<g:render template="/site/siteslist" model="[sites:siteslist,appliedsites:appliedsites]" />
         </div>
         <div class="col-xs-3">
             <div class="page-header">
