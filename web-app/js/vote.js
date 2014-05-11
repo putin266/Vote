@@ -149,5 +149,19 @@
     })
 
 function setEditorContent(){
-    $('#editorcontent').val($('#editor').cleanHtml());
+    $('#editorcontent').val($('#editor').html());
+}
+
+function afterUpdateComments(){
+    $("input[name='comment']").val('');
+}
+
+
+function changeCommentText(obj){
+    if ($('#'+ obj).html() == 'Close Comment'){
+        $('#f' + obj.substr(1)).submit()
+    }else{
+        $('#'+obj).html('Close Comment')
+    }
+
 }

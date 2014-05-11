@@ -13,13 +13,13 @@
     <br>
     <br>
     <g:if test="${it.type == "discussion"}">
-        ${it.contents.size() - 1 }&nbsp;Opinions
+        ${it.contents.size()}&nbsp;Opinions
     </g:if>
     <g:elseif test="${it.type == "question"}">
-        ${it.contents.size() - 1}&nbsp;Answers
+        ${it.contents.size()}&nbsp;Answers
     </g:elseif>
     <g:else>
-        ${it.contents.size() - 1}&nbsp;Comments
+        ${it.contents.size()}&nbsp;Comments
     </g:else>
     <i class="fa fa-plus"></i>Follow Topic
     <hr>

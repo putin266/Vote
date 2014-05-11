@@ -27,4 +27,9 @@ class TopicController {
         }
         redirect(action: "index",id: topic.id)
     }
+
+    def getCommentsSize(){
+        def topic = Topic.findById(params.id as Long)
+        render(topic.comments.size() + "&nbsp;Comments")
+    }
 }
