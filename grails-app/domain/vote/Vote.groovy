@@ -2,11 +2,11 @@ package vote
 
 class Vote {
     String type
-    Date creatTime
+    Date dateCreated
+    Date lastUpdated
     User user
-    Content content
-    static belongsTo = [User,Content]
+    static belongsTo = [User]
     static constraints = {
-        type(inList: ["upvote","downvote"])
+        type(inList: ["upvote","downvote","novote"])
     }
 }

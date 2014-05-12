@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1722873078">
+  <component name="DataSourceManagerImpl" format="xml" hash="2743315874">
     <data-source source="LOCAL" name="Vote dev" uuid="1b4a2f43-dc39-4b53-a983-3c007bebdac9">
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>

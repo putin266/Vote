@@ -6,4 +6,12 @@ class ContentController {
         def content = Content.findById(params.id as Long)
         render(content.comments.size() + "&nbsp;Comments")
     }
+
+    def upvote(){
+
+    }
+
+    def downvote(){
+
+    }
 }

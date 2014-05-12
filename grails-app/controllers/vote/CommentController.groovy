@@ -8,7 +8,7 @@ class CommentController {
         if(id.contains('t')){
             id = id.substring(1)
             def topic = Topic.findById(id.toLong())
-            def comment = new Comment(comment: params.comment,createTime: TimeService.currentTime())
+            def comment = new Comment(comment: params.comment)
             topic.addToComments(comment)
             user.addToComments(comment)
             if(comment?.validate()){
@@ -20,7 +20,7 @@ class CommentController {
             return render(template: "/comment/commentslist" , model: [comments:topic.comments])
         }else{
             def content = Content.findById(id.toLong())
-            def comment = new Comment(comment: params.comment,createTime: TimeService.currentTime())
+            def comment = new Comment(comment: params.comment)
             content.addToComments(comment)
             user.addToComments(comment)
             if(comment?.validate()){

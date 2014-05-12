@@ -9,7 +9,7 @@
         <i class="fa fa-star"></i>
     </g:else>
     <g:link controller="topic" action="index" id="${it.id}" class="h4">${it.title}</g:link>
-    <span class="pull-right text-muted"><prettytime:display date="${it.lastUpdateTime}" capitalize="true" /></span>
+    <span class="pull-right text-muted"><prettytime:display date="${it.lastUpdated}" capitalize="true" /></span>
     <br>
     <br>
     <g:if test="${it.type == "discussion"}">

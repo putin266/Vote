@@ -1,5 +1,5 @@
 <div class="clearfix">
-    <span class="h5">${content.user.firstname}&nbsp;${content.user.lastname}</span>
+    <span class="h5 text-info">${content.user.firstname}&nbsp;${content.user.lastname}</span>
     <img class="media-object pull-right" data-src="holder.js/25x25/text:User" text="User">
 </div>
 

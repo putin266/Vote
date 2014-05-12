@@ -1,0 +1,6 @@
+package vote
+
+class VoteController {
+
+
+}

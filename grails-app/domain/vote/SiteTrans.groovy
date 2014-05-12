@@ -5,6 +5,8 @@ class SiteTrans {
     String status
     User targetUser
     Site site
+    Date dateCreated
+    Date lastUpdated
     static belongsTo = [Site]
     static constraints = {
         type(inList: ["AddNewUser"],blank: false)

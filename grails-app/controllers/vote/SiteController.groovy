@@ -3,14 +3,14 @@ package vote
 class SiteController {
 
     def index() {
-        if (!params.id){
+        if (!params.id) {
             redirect(action: "mysites")
-        }else{
+        } else {
             def site = Site.findById(params.id)
             def user = User.findById(session.user.id as Long)
             def flag = site.users.contains(user)
             def topiclist = site.topics
-            [site:site,accepted:flag,topiclist:topiclist]
+            [site: site, accepted: flag, topiclist: topiclist]
         }
 
     }
@@ -18,68 +18,67 @@ class SiteController {
     def mysites() {
         def user = User.findById(session.user.id as Long)
         def siteslist = user?.sites
-        def trans = SiteTrans.findAll {type == "AddNewUser" && status == "Open" && targetUser == user}
+        def trans = SiteTrans.findAll { type == "AddNewUser" && status == "Open" && targetUser == user }
         def appliedsites = new ArrayList()
-        trans.each {appliedsites.add(it.site)}
-        [siteslist:siteslist,appliedsites:appliedsites]
+        trans.each { appliedsites.add(it.site) }
+        [siteslist: siteslist, appliedsites: appliedsites]
     }
 
 
     def newsite() {
     }
 
-    def newtopic(){
+    def newtopic() {
         def user = User.findById(session.user.id as Long)
         def site = Site.findById(params.siteid as Long)
         def flag = false
-        if("information".equals(params.topicType)){
+        if ("information".equals(params.topicType)) {
             flag = true
         }
-        def topic = new Topic(title: params.title,type: params.topicType,detail: params.editorcontent,candidate: flag,createTime: TimeService.currentTime(),user:user)
-        TagService.strToTagList(params.tags as String).each {topic.addToTags(it)}
+        def topic = new Topic(title: params.title, type: params.topicType, detail: params.editorcontent, candidate: flag, user: user)
+        TagService.strToTagList(params.tags as String).each { topic.addToTags(it) }
         site.addToTopics(topic)
         user.addToTopics(topic)
-        topic.lastUpdateTime = TimeService.currentTime()
-        if(topic?.validate() && user && site){
+        if (topic?.validate() && user && site) {
             user.save()
             site.save()
             flash.message = "New Topic Created"
-            redirect(action: "index",id: params.siteid)
+            redirect(action: "index", id: params.siteid)
             return
-        }else{
-            flash.error = "System error occurs, Please try later" + "\ntopic errors:" +  topic.errors
-            redirect(action: "index",id: params.siteid)
+        } else {
+            flash.error = "System error occurs, Please try later" + "\ntopic errors:" + topic.errors
+            redirect(action: "index", id: params.siteid)
         }
 
     }
 
-    def follow(){
+    def follow() {
         def site = Site.findById(params.id as Long)
         def user = User.findById(session.user.id as Long)
-        if(user){
-            if(user.sites.contains(site)){
+        if (user) {
+            if (user.sites.contains(site)) {
                 flash.message = "The site has been followed"
-            }else{
-                def sitetrans = new SiteTrans(type: "AddNewUser",status: "Open",site: site,targetUser: user)
-                if (SiteTrans.find {type=="AddNewUser" && status=="Open" && targetUser == user && site == site}){
+            } else {
+                def sitetrans = new SiteTrans(type: "AddNewUser", status: "Open", site: site, targetUser: user)
+                if (SiteTrans.find { type == "AddNewUser" && status == "Open" && targetUser == user && site == site }) {
                     flash.message = "The apply has been sent before! Please wait for the confirm."
                     redirect(action: "mysites")
                     return
                 }
-                if(sitetrans){
+                if (sitetrans) {
                     sitetrans.save()
                     flash.message = "The apply has been sent! Please wait for the confirm."
                     redirect(action: "mysites")
                     return
-                }else{
+                } else {
                     flash.error = "Follow Failed, Please Try Again"
                     redirect(action: "mysites")
                     return
                 }
             }
-        }else{
+        } else {
             flash.error = "Not login"
-            redirect(controller: "auth",action: "login")
+            redirect(controller: "auth", action: "login")
             return
         }
     }
@@ -87,7 +86,7 @@ class SiteController {
     def create() {
         if (!params.get("agreed").equals("on")) {
             flash.error = "Not confirmed"
-            redirect(action:"newsite",params: params)
+            redirect(action: "newsite", params: params)
             return
         }
         def user = User.findById(session.user.id as Long)
@@ -96,17 +95,17 @@ class SiteController {
         if (!newsite?.validate()) {
             flash.error = "Site does not been init correctly"
             log.error("Site does not been init correctly")
-            redirect(action:"newsite",params: params)
+            redirect(action: "newsite", params: params)
             return
         }
-        TagService.strToTagList(params.tags as String).each {newsite.addToTags(it)}
+        TagService.strToTagList(params.tags as String).each { newsite.addToTags(it) }
         if (newsite.validate()) {
             newsite.save()
             log.info("Site " + newsite.name + " has been saved successfully")
         } else {
             log.error("site " + newsite.name + " saved failed")
             flash.error = "site " + newsite.name + " saved failed"
-            redirect(action:"newsite",params: params)
+            redirect(action: "newsite", params: params)
             return
         }
         flash.message = "Site " + newsite.name + " has been created successfully!"

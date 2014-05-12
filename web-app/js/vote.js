@@ -163,5 +163,8 @@ function changeCommentText(obj){
     }else{
         $('#'+obj).html('Close Comment')
     }
+}
 
+function submitbtn(obj){
+    $('#' + obj).click()
 }

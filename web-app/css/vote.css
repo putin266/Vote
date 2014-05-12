@@ -72,3 +72,30 @@ a.h4, a:hover.h4, a:visited.h4 {
     overflow: auto;
     outline: none;
 }
+
+.topic-detail{
+    position: relative;
+    min-height: 100px;
+}
+
+.side-vote{
+    position: absolute;
+    top: 0;
+    left: -45px;
+}
+
+.side-vote a,.side-vote a:hover,.side-vote a:visited{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.side-vote .downvote{
+    margin:5px 0 0 0;
+    display: block;
+}
+
+.side-vote .downvote,.side-vote .upvote{
+    background-color: #EFF6FB;
+    width:38px;
+    padding: 6px;!important
+}

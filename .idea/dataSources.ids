@@ -2568,7 +2568,7 @@
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="comment" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FK38A5EE5FC5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2580,8 +2580,9 @@
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="candidate" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
-      <column name="content" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="content" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="last_updated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="topic_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id"/>
@@ -2618,8 +2619,10 @@
     <table name="site" schema="" catalog="vote" type="TABLE">
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="is_public" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="last_updated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="FKE036821186B4F4FE" table="site_tags" schema="" catalog="vote" columns="site_id"/>
@@ -2628,8 +2631,8 @@
       <exported-key name="FK734E149886B4F4FE" table="user_sites" schema="" catalog="vote" columns="site_id"/>
     </table>
     <table name="site_tags" schema="" catalog="vote" type="TABLE">
-      <column name="tag_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="tag_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="site_id,tag_id"/>
       <foreign-key name="FKE036821168AF5256" columns="tag_id" ref-table="tag" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKE036821186B4F4FE" columns="site_id" ref-table="site" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2639,6 +2642,8 @@
     <table name="site_trans" schema="" catalog="vote" type="TABLE">
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="last_updated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="status" sqlType="VARCHAR" precision="6" scale="0" nullable="false" jdbcType="12"/>
       <column name="target_user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -2662,9 +2667,9 @@
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="candidate" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7"/>
-      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="detail" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="last_update_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="last_updated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="title" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="type" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
@@ -2688,8 +2693,8 @@
       <index name="FKDB3FC34FC73F5236" unique="false" columns="comment_id"/>
     </table>
     <table name="topic_tags" schema="" catalog="vote" type="TABLE">
-      <column name="tag_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="topic_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="tag_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="topic_id,tag_id"/>
       <foreign-key name="FKCE46052968AF5256" columns="tag_id" ref-table="tag" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKCE460529EEA7A736" columns="topic_id" ref-table="topic" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2730,8 +2735,8 @@
       <index name="FKE693E610C5767E" unique="false" columns="user_id"/>
     </table>
     <table name="user_roles" schema="" catalog="vote" type="TABLE">
-      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="role_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="user_id,role_id"/>
       <foreign-key name="FK73429949C5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK734299495B9AB29E" columns="role_id" ref-table="role" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2739,8 +2744,8 @@
       <index name="FK73429949C5767E" unique="false" columns="user_id"/>
     </table>
     <table name="user_sites" schema="" catalog="vote" type="TABLE">
-      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="user_id,site_id"/>
       <foreign-key name="FK734E149886B4F4FE" columns="site_id" ref-table="site" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK734E1498C5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2750,6 +2755,8 @@
     <table name="user_trans" schema="" catalog="vote" type="TABLE">
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="last_updated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="FKC2F4AA2881655F7F" table="user_user_trans" schema="" catalog="vote" columns="user_trans_id"/>
     </table>
@@ -2765,7 +2772,8 @@
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="content_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="creat_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="last_updated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="type" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
       <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id"/>

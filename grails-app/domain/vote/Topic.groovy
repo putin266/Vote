@@ -5,8 +5,8 @@ class Topic {
     String type
     String detail
     Boolean candidate
-    Date createTime
-    Date lastUpdateTime
+    Date dateCreated
+    Date lastUpdated
     Site site
     User user
     static belongsTo = [Site,User]

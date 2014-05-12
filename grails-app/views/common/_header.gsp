@@ -48,7 +48,7 @@
                                     class="badge pull-right">42</span>Message</g:link></li>
                         </g:if>
                         <g:else>
-                            <li><g:link href="#contact"><span class="badge pull-right">42</span>Message</g:link></li>
+                            <li><g:link href="#contact" >Message<span class="badge">42</span></g:link></li>
                         </g:else>
                     </ul>
                 </div>
