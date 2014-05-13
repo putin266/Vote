@@ -38,6 +38,8 @@ class TopicController {
         def vote = topic.votes.find { it.user.id == user.id }
         if (vote) {
             if (vote.type == "upvote") {
+                vote.type = "novote"
+                vote.save()
             }else {
                 vote.type = "upvote"
                 vote.save()
@@ -56,6 +58,8 @@ class TopicController {
         def vote = topic.votes.find { it.user.id == user.id }
         if (vote) {
             if (vote.type == "downvote") {
+                vote.type = "novote"
+                vote.save()
             }else {
                 vote.type = "downvote"
                 vote.save()

@@ -48,7 +48,7 @@
                                     class="badge pull-right">42</span>Message</g:link></li>
                         </g:if>
                         <g:else>
-                            <li><g:link href="#contact" >Message<span class="badge">42</span></g:link></li>
+                            <li><g:link href="#contact">Message<span class="badge">42</span></g:link></li>
                         </g:else>
                     </ul>
                 </div>
@@ -56,8 +56,12 @@
 
             <div class="col-xs-2">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="navbar-text">Hi ${session.user.firstname}</li>
-                    <li><g:link controller="auth" action="signOut">Logout</g:link></li>
+                    <li class="navbar-text">
+                        <div class="login-info">Hi&nbsp;<g:link style="padding:0" controller="user" action="index"
+                                             id="${session.user.id}">${session.user.firstname}</g:link>
+                        <g:link controller="auth" action="signOut">Logout</g:link>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

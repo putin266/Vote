@@ -1,10 +1,10 @@
 <div id="${'uv' + type + candidate.id}" onclick="">
     <g:if test="${votetype?.equals('upvote')}">
-        <div style="color: #000000" class="btn upvote text-center" onclick="submitbtn('${'uvbtn' + type + candidate.id}')">
+        <div class="btn upvote voted text-center" onclick="submitbtn('${'uvbtn' + type + candidate.id}')">
             <a>
-                <i class="fa fa-sort-desc"></i>
+                <i class="fa fa-sort-desc voted"></i>
 
-                <div>${(candidate.votes.findAll {it.type == "upvote"}).size()}</div>
+                <div class="voted">${(candidate.votes.findAll {it.type == "upvote"}).size()}</div>
             </a>
         </div>
     </g:if>
@@ -24,16 +24,16 @@
 
 <div id="${'dv' + type + candidate.id}">
     <g:if test="${votetype?.equals('downvote')}">
-        <div style="color: #000000" class="btn downvote text-center" onclick="submitbtn('${'dvbtn' + type + candidate.id}')">
+        <div class="btn downvote text-center voted" onclick="submitbtn('${'dvbtn' + type + candidate.id}')">
             <a>
-                <i class="fa fa-sort-asc fa-2"></i>
+                <i class="fa fa-sort-asc voted"></i>
             </a>
         </div>
     </g:if>
     <g:else>
         <div class="btn downvote text-center" onclick="submitbtn('${'dvbtn' + type + candidate.id}')">
             <a>
-                <i class="fa fa-sort-asc fa-2"></i>
+                <i class="fa fa-sort-asc"></i>
             </a>
         </div>
     </g:else>

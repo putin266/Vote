@@ -2,5 +2,4 @@ package vote
 
 class VoteController {
 
-
 }

@@ -25,16 +25,21 @@
             <div class="page-header">
                 <h3>&nbsp</h3>
             </div>
-            <g:if test="${topic.type == "discussion"}">
-                <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Opinion</button>
-            </g:if>
-            <g:elseif test="${topic.type == "question"}">
-                <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Answer</button>
-            </g:elseif>
-            <g:else>
-                <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Comment</button>
-            </g:else>
-            <g:render template="newContent" model="[topic:topic]"></g:render>
+            <div class="form-group">
+                <g:link class="btn btn-lg btn-info" controller="site" action="index" id="${topic.site.id}">Back to topic list</g:link>
+            </div>
+            <div class="form-group">
+                <g:if test="${topic.type == "discussion"}">
+                    <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Opinion</button>
+                </g:if>
+                <g:elseif test="${topic.type == "question"}">
+                    <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Answer</button>
+                </g:elseif>
+                <g:else>
+                    <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Comment</button>
+                </g:else>
+                <g:render template="newContent" model="[topic:topic]"></g:render>
+            </div>
         </div>
     </div>
 </div>

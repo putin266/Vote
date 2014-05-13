@@ -73,7 +73,7 @@ a.h4, a:hover.h4, a:visited.h4 {
     outline: none;
 }
 
-.topic-detail{
+.topic-detail,.content-detail{
     position: relative;
     min-height: 100px;
 }
@@ -97,5 +97,17 @@ a.h4, a:hover.h4, a:visited.h4 {
 .side-vote .downvote,.side-vote .upvote{
     background-color: #EFF6FB;
     width:38px;
-    padding: 6px;!important
+    padding: 6px;
+}
+
+.voted{
+    background-color: #698ebf!important;
+    color: #fff!important;
+}
+.login-info{
+    white-space:nowrap;
+}
+
+.login-info a{
+    text-decoration: none;
 }
