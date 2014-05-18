@@ -2,7 +2,7 @@
     No Comments yet.
 </g:if>
 <g:else>
-    <g:each in="${comments}">
+    <g:each in="${comments.toList().sort{it.dateCreated}}">
         <div class="media">
             <a class="pull-left" href="#">
                 <img class="media-object pull-right" data-src="holder.js/25x25/text:User" text="User">

@@ -11,7 +11,7 @@ class ExploreController {
         }
         def user = User.findById(session.user.id as Long)
         siteslist.removeAll(user?.sites)
-        user?.sitetrans?.each {
+        user?.siteTranses?.each {
                 if(it.type == "AddNewUser" && it.status == "Open"){
                     siteslist.remove(it.site)
             }

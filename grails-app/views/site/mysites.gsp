@@ -27,7 +27,9 @@
             <div class="page-header">
                 <h3>&nbsp</h3>
             </div>
-            <g:link type="button" class="btn btn-lg btn-info" controller="site" action="newsite">Create a new site</g:link>
+            <div class="list-group">
+                <g:link type="button" class="list-group-item" controller="site" action="newsite"><i class="fa fa-building-o"></i>&nbsp;Create a new site</g:link>
+            </div>
         </div>
     </div>
 </div>

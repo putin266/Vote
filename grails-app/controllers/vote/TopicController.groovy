@@ -5,7 +5,7 @@ class TopicController {
     def index() {
         def user = User.findById(session.user.id as Long)
         def topic = Topic.findById(params.id as Long)
-        [topic: topic, taglist: topic.tags]
+        [topic: topic, taglist: topic.tags.sort {it.lastUpdated}]
     }
 
     def addContent() {

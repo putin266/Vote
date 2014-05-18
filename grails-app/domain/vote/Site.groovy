@@ -7,10 +7,11 @@ class Site {
     Date dateCreated
     Date lastUpdated
     static belongsTo = [User]
-    static hasMany = [tags : Tag,users: User,trans: SiteTrans,topics:Topic]
+    static hasMany = [tags : Tag,users: User, transes: SiteTrans,topics:Topic,admins:User,settings:SiteSetting]
     static constraints = {
         name(blank: false)
         description(blank: false)
+        settings(nullable: true)
     }
 
 }

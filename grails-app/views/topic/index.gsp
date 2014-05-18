@@ -25,18 +25,16 @@
             <div class="page-header">
                 <h3>&nbsp</h3>
             </div>
-            <div class="form-group">
-                <g:link class="btn btn-lg btn-info" controller="site" action="index" id="${topic.site.id}">Back to topic list</g:link>
-            </div>
-            <div class="form-group">
+            <div class="list-group">
+                <g:link class="list-group-item" controller="site" action="index" id="${topic.site.id}"><i class="fa fa-arrow-left"></i>&nbsp;Back to topic list</g:link>
                 <g:if test="${topic.type == "discussion"}">
-                    <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Opinion</button>
+                    <a class="list-group-item" data-toggle="modal" data-target="#newContent"><i class="fa fa-comment"></i>&nbsp;Add Opinion</a>
                 </g:if>
                 <g:elseif test="${topic.type == "question"}">
-                    <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Answer</button>
+                    <a  class="list-group-item" data-toggle="modal" data-target="#newContent"><i class="fa fa-comment"></i>&nbsp;Add Answer</a>
                 </g:elseif>
                 <g:else>
-                    <button  type="button" class="btn btn-lg btn-info" data-toggle="modal" data-target="#newContent">Add Comment</button>
+                    <a class="list-group-item" data-toggle="modal" data-target="#newContent"><i class="fa fa-comment"></i>&nbsp;Add Comment</a>
                 </g:else>
                 <g:render template="newContent" model="[topic:topic]"></g:render>
             </div>

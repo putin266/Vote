@@ -7,7 +7,9 @@ class ShiroSecurityFilters {
 
         all (uri : "/**"){
             before = {
-                 if(!controllerName) return true
+                 if(!controllerName || controllerName == ("platformTools")) {
+                     return true
+                 }
                  accessControl(){true}
             }
         }

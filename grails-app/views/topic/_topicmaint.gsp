@@ -14,7 +14,9 @@
 
 <div class="topic-detail">
     <g:if test="${topic.candidate}">
-        <g:render template="/vote/sideVote" model="[candidate:topic,type:'topic',votetype:(topic.votes.find {it.user.id == session.user.id})?.type]" />
+        <g:render template="/vote/sideVote" model="[candidate: topic, type: 'topic', votetype: (topic.votes.find {
+            it.user.id == session.user.id
+        })?.type]"/>
     </g:if>
     <div class="form-group">
         <p>
@@ -37,7 +39,10 @@
 
 <g:render template="/comment/comments" model="[comments: topic.comments, id: 't' + topic.id]"/>
 <hr>
-<g:each in="${topic.contents}">
+<% def contentlist = topic.contents
+       contentlist = contentlist.sort {(it.votes.findAll {it.type=="downvote"}).size()-(it.votes.findAll {it.type=="upvote"}).size()}
+%>
+<g:each in="${contentlist}">
     <g:render template="contentBlock" model="[content: it]"></g:render>
 </g:each>
 

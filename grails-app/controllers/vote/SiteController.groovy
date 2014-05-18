@@ -9,7 +9,7 @@ class SiteController {
             def site = Site.findById(params.id)
             def user = User.findById(session.user.id as Long)
             def flag = site.users.contains(user)
-            def topiclist = site.topics
+            def topiclist = (site.topics.toList().sort {it.lastUpdated}).reverse()
             [site: site, accepted: flag, topiclist: topiclist]
         }
 
@@ -17,10 +17,11 @@ class SiteController {
 
     def mysites() {
         def user = User.findById(session.user.id as Long)
-        def siteslist = user?.sites
-        def trans = SiteTrans.findAll { type == "AddNewUser" && status == "Open" && targetUser == user }
+        def siteslist = user?.sites.toList()
+        def trans = SiteTrans.findAll { type == "AddNewUser" && status == "Open" && targetDomain == "user" && targetId == user.id.toString() }
         def appliedsites = new ArrayList()
         trans.each { appliedsites.add(it.site) }
+        siteslist = (siteslist.sort {it.lastUpdated}).reverse()
         [siteslist: siteslist, appliedsites: appliedsites]
     }
 
@@ -59,14 +60,15 @@ class SiteController {
             if (user.sites.contains(site)) {
                 flash.message = "The site has been followed"
             } else {
-                def sitetrans = new SiteTrans(type: "AddNewUser", status: "Open", site: site, targetUser: user)
-                if (SiteTrans.find { type == "AddNewUser" && status == "Open" && targetUser == user && site == site }) {
+                def sitetrans = new SiteTrans(type: "AddNewUser", status: "Open", site: site, targetDomain: "user", targetId: user.id.toString())
+                if (SiteTrans.find { type == "AddNewUser" && status == "Open" && targetDomain == "user" && targetId == user.id.toString() && site == site }) {
                     flash.message = "The apply has been sent before! Please wait for the confirm."
                     redirect(action: "mysites")
                     return
                 }
                 if (sitetrans) {
-                    sitetrans.save()
+                    site.addToTranses(sitetrans)
+                    site.save()
                     flash.message = "The apply has been sent! Please wait for the confirm."
                     redirect(action: "mysites")
                     return
@@ -110,5 +112,13 @@ class SiteController {
         }
         flash.message = "Site " + newsite.name + " has been created successfully!"
         redirect(action: "mysites")
+    }
+
+    def settings(){
+
+    }
+
+    def maintenance(){
+
     }
 }

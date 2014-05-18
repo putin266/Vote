@@ -3,7 +3,9 @@ package vote
 class SiteTrans {
     String type
     String status
-    User targetUser
+    String targetDomain
+    String targetId
+    String postscript
     Site site
     Date dateCreated
     Date lastUpdated
