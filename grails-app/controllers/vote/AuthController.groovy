@@ -135,4 +135,12 @@ class AuthController {
     def unauthorized = {
         redirect(action: "login")
     }
+
+    def findpassword = {
+
+    }
+
+    def changePasswordReq = {
+
+    }
 }

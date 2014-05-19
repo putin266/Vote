@@ -28,13 +28,14 @@
 </div>
 
 <div>
-    <g:formRemote url="[controller: 'topic', action: 'getCommentsSize', id: topic.id]"
+    <g:formRemote style="display: inline" url="[controller: 'topic', action: 'getCommentsSize', id: topic.id]"
                   name="fcomments${'t' + topic.id}" update="acomments${'t' + topic.id}">
         <a id="acomments${'t' + topic.id}" class="text-muted" data-toggle="collapse" data-toggle="collapse"
            data-parent="#accordion"
            href="#comments${'t' + topic.id}"
            onclick="changeCommentText('acomments${'t' + topic.id}')">${topic.comments.size()}&nbsp;Comments</a>
     </g:formRemote>
+    <g:render template="adminOptions"></g:render>
 </div>
 
 <g:render template="/comment/comments" model="[comments: topic.comments, id: 't' + topic.id]"/>

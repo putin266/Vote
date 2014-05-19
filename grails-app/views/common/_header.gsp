@@ -14,12 +14,12 @@
             </div>
 
             <div class="col-xs-4">
-                <form class="navbar-form navbar-left" role="search">
+                <g:form controller="search" action="search" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" name="text" placeholder="Search">
                     </div>
-                    <button type="submit" class="btn btn-default">Search</button>
-                </form>
+                    <g:submitButton type="submit" class="btn btn-default" name="Search">Search</g:submitButton>
+                </g:form>
             </div>
 
             <div class="col-xs-5">

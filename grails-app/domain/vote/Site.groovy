@@ -13,5 +13,4 @@ class Site {
         description(blank: false)
         settings(nullable: true)
     }
-
 }

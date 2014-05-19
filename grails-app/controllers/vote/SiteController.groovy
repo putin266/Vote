@@ -60,20 +60,23 @@ class SiteController {
             if (user.sites.contains(site)) {
                 flash.message = "The site has been followed"
             } else {
-                def sitetrans = new SiteTrans(type: "AddNewUser", status: "Open", site: site, targetDomain: "user", targetId: user.id.toString())
+                def sitetrans = new SiteTrans(user:user,postscript: "Apply for enter", type: "AddNewUser", status: "Open", site: site, targetDomain: "user", targetId: user.id.toString())
                 if (SiteTrans.find { type == "AddNewUser" && status == "Open" && targetDomain == "user" && targetId == user.id.toString() && site == site }) {
                     flash.message = "The apply has been sent before! Please wait for the confirm."
                     redirect(action: "mysites")
                     return
                 }
-                if (sitetrans) {
+                if (sitetrans.validate()) {
                     site.addToTranses(sitetrans)
                     site.save()
+                    user.addToSiteTranses(sitetrans)
+                    user.save()
+                    sitetrans.save()
                     flash.message = "The apply has been sent! Please wait for the confirm."
                     redirect(action: "mysites")
                     return
                 } else {
-                    flash.error = "Follow Failed, Please Try Again"
+                    flash.error = "Follow Failed, Please Try Again" + " Error:" + sitetrans.errors
                     redirect(action: "mysites")
                     return
                 }
@@ -119,6 +122,12 @@ class SiteController {
     }
 
     def maintenance(){
-
+        def site = Site.findById(params.id as Long)
+        def user = User.findById(session.user.id as Long)
+        def isAdmin = false
+        if (site.admins.contains(user)){
+            isAdmin = true
+        }
+        return [isAdmin:isAdmin,site:site]
     }
 }

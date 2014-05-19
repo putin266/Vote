@@ -5,6 +5,8 @@ class User {
     String passwordHash
     String firstname
     String lastname
+    Date dateCreated
+    Date lastUpdated
     static hasMany = [roles: Role, permissions: String, sites: Site, siteTranses: SiteTrans, contents: Content, votes: Vote, comments: Comment, topics: Topic, sentMsgs: Message, inboxMsgs: Message,settings:UserSetting]
     static mappedBy = [sites: "users",sentMsgs: "fromUser",inboxMsgs: "toUser"]
     static constraints = {

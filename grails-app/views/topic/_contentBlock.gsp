@@ -14,13 +14,14 @@
 </div>
 
 <div>
-    <g:formRemote url="[controller: 'content', action: 'getCommentsSize', id: content.id]" name="fcomments${content.id}"
+    <g:formRemote style="display:inline" url="[controller: 'content', action: 'getCommentsSize', id: content.id]" name="fcomments${content.id}"
                   update="acomments${content.id}">
         <a id="acomments${content.id}" class="text-muted" data-toggle="collapse" data-toggle="collapse"
            data-parent="#accordion"
            href="#comments${content.id}"
            onclick="changeCommentText('acomments${content.id}')">${content.comments.size()}&nbsp;Comments</a>
     </g:formRemote>
+    <g:render template="adminOptions"></g:render>
 </div>
 <g:render template="/comment/comments" model="[comments: content.comments, id: content.id]"/>
 <hr>

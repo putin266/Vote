@@ -9,7 +9,8 @@ class SiteTrans {
     Site site
     Date dateCreated
     Date lastUpdated
-    static belongsTo = [Site]
+    User user
+    static belongsTo = [Site,User]
     static constraints = {
         type(inList: ["AddNewUser"],blank: false)
         status(inList: ["Closed","Open"],blank: false)

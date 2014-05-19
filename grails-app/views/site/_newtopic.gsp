@@ -35,7 +35,8 @@
 
                     <div class="form-group">
                         <label>Tags</label>
-                        <g:textField class="form-control" name="tags"/>
+                        <g:select from="${site.tags}" optionKey="name" optionValue="name" class="form-control" name="tags">
+                        </g:select>
                     </div>
                 </div>
                 <g:hiddenField name="siteid" value="${params.id}"></g:hiddenField>

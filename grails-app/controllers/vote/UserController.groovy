@@ -5,6 +5,5 @@ class UserController {
     def index() {}
 
     def settings(){
-
     }
 }

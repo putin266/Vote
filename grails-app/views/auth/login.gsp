@@ -31,6 +31,11 @@
                         <g:checkBox  name="remember-me" value="${rememberMe}" />Remember Me
                     </label>
                     </div>
+                    <div class="form-group">
+                        <g:link style="text-decoration:none" controller="auth" action="findpassword">
+                            Forget Password?
+                        </g:link>
+                    </div>
                     <button class="btn btn-lg btn-primary" type="submit">Log In</button>
                     <g:link controller="auth" action="register" class="btn btn-lg btn-default">Sign Up>></g:link>
                 </g:form>

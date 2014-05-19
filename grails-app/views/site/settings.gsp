@@ -27,20 +27,7 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div class="tab-pane active" id="board">
-                    <br>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Site rules</h3>
-                        </div>
-
-                        <div class="panel-body">
-                            content
-                        </div>
-                    </div>
-
-                </div>
+                <g:render template="board"></g:render>
 
                 <div class="tab-pane" id="basic">
                     <br>

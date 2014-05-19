@@ -28,7 +28,7 @@
 
                 <div class="tab-pane" id="account">...</div>
 
-                <div class="tab-pane" id="password">...</div>
+                <g:render template="/user/password"></g:render>
 
                 <div class="tab-pane" id="messages">...</div>
 
