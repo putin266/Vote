@@ -86,6 +86,10 @@
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/quartz-1.0-RC2/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/quartz-1.0-RC2/grails-app/services" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/target/work/plugins/quick-search-0.2.6">
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/quick-search-0.2.6/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/quick-search-0.2.6/grails-app/services" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.7">
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.7/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/work/plugins/resources-1.2.7/src/groovy" isTestSource="false" />

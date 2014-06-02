@@ -16,6 +16,7 @@
 
 package grails.plugin.mail
 
+import grails.util.Holders
 import org.springframework.mail.MailMessage
 
 /**
@@ -25,13 +26,13 @@ class MailService {
 
     static transactional = false
     
-    def mailMessageBuilderFactory
+    def static mailMessageBuilderFactory = new MailMessageBuilderFactory()
     
     MailMessage sendMail(Closure callable) {
         if (isDisabled()) {
             log.warn("Sending emails disabled by configuration option")
         } else {
-            def messageBuilder = mailMessageBuilderFactory.createBuilder(mailConfig)
+            def messageBuilder = mailMessageBuilderFactory.createBuilder(getMailConfig())
             callable.delegate = messageBuilder
             callable.resolveStrategy = Closure.DELEGATE_FIRST
             callable.call()
@@ -41,11 +42,11 @@ class MailService {
     }
     
     def getMailConfig() {
-        org.codehaus.groovy.grails.commons.ConfigurationHolder.config.grails.mail
+        Holders.getGrailsApplication().config.grails.mail
     }
     
     boolean isDisabled() {
-        mailConfig.disabled
+        getMailConfig().disabled
     }
     
 }

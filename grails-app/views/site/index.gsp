@@ -38,7 +38,7 @@
 
                     <g:render template="/site/newtopic" model="[site:site]"></g:render>
 
-                    <g:link class="list-group-item" action="settings"><i class="fa fa-gear"></i>&nbsp;Site Settings</g:link>
+                    <g:link class="list-group-item" action="settings" id="${site.id}"><i class="fa fa-gear"></i>&nbsp;Site Settings</g:link>
                     <g:link class="list-group-item" id="${site.id}" action="maintenance"><i class="fa fa-gavel"></i>&nbsp;Site Maintenance</g:link>
                 </g:if>
                 <g:else>

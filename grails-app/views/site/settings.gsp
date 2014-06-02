@@ -23,48 +23,18 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#board" data-toggle="tab">Board</a></li>
                 <li><a href="#basic" data-toggle="tab">Basic</a></li>
+
+                <div class="pull-right" style="line-height: 42px;">
+                    <g:link controller="site" action="index" id="${site.id}"><i
+                            class="fa fa-arrow-left"></i>&nbsp;Back to topic list</g:link>
+                </div>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
                 <g:render template="board"></g:render>
 
-                <div class="tab-pane" id="basic">
-                    <br>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Terms for generate controller</h3>
-                        </div>
-
-                        <div class="panel-body">
-                            <g:form class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Min Vote for best topic</label>
-
-                                    <div class="col-sm-9">
-                                        <input type="number" class="form-control" placeholder="Number">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Min best topic</label>
-
-                                    <div class="col-sm-9">
-                                        <input type="number" class="form-control"
-                                               placeholder="Number">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Apply for change</button>
-                                    </div>
-                                </div>
-                            </g:form>
-                        </div>
-                    </div>
-                </div>
+                <g:render template="basic_settings" model="[site: site, user: user, isAdmin: isAdmin,minvote:minvote,minbest:minbest]"></g:render>
             </div>
 
         </div>

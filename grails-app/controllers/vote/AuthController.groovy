@@ -1,5 +1,6 @@
 package vote
 
+import com.grailsrocks.emailconfirmation.EmailConfirmationService
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken
@@ -48,7 +49,27 @@ class AuthController {
             targetUri = savedRequest.requestURI - request.contextPath
             if (savedRequest.queryString) targetUri = targetUri + '?' + savedRequest.queryString
         }
-        
+        //user not confirmed by email
+        if(!User.findByUsername(params.username as String).status?.equals("confirmed")){
+            flash.message = "Account is unconfirmed"
+
+            // Keep the username and "remember me" setting so that the
+            // user doesn't have to enter them again.
+            def m = [ username: params.username ]
+            if (params.rememberMe) {
+                m["rememberMe"] = true
+            }
+
+            // Remember the target URI too.
+            if (params.targetUri) {
+                m["targetUri"] = params.targetUri
+            }
+
+            // Now redirect back to the login page.
+            redirect(action: "login", params: m)
+            return
+        }
+
         try{
             // Perform the actual login. An AuthenticationException
             // will be thrown if the username is unrecognised or the
@@ -101,11 +122,18 @@ class AuthController {
                 flash.message = message(code: "register.failed.username")
                 redirect(action: "register")
             }else{
-                def user = new User(username: params.username, passwordHash: new Sha512Hash(params.password).toHex(),firstname: params.firstname,lastname: params.lastname)
+                def user = new User(status: "unconfirmed", username: params.username, passwordHash: new Sha512Hash(params.password).toHex(),firstname: params.firstname,lastname: params.lastname)
                 if(user.validate()){
                     if(user.save()){
-                        session.setAttribute("user",user)
-                        redirect(uri: "/")
+                        def emailservice = new EmailConfirmationService()
+                        emailservice.sendConfirmation(
+                                to:params.username,
+                                subject:"Registration Confirm",
+                                event: "registration",
+                                eventNamespace: "vote"
+                        )
+                        flash.message = "Please login after confirm"
+                        redirect(controller: "auth",action: "login")
                     }else{
                         user.discard()
                         flash.message = message(code: "register.failed")

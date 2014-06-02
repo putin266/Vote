@@ -9,19 +9,20 @@ class SiteController {
             def site = Site.findById(params.id)
             def user = User.findById(session.user.id as Long)
             def flag = site.users.contains(user)
-            def topiclist = (site.topics.toList().sort {it.lastUpdated}).reverse()
+            def topiclist = (site.topics.toList().sort { it.lastUpdated }).reverse()
             [site: site, accepted: flag, topiclist: topiclist]
         }
-
     }
 
     def mysites() {
         def user = User.findById(session.user.id as Long)
         def siteslist = user?.sites.toList()
-        def trans = SiteTrans.findAll { type == "AddNewUser" && status == "Open" && targetDomain == "user" && targetId == user.id.toString() }
+        def trans = SiteTrans.findAll {
+            type == "AddNewUser" && status == "Open" && targetDomain == "user" && targetId == user.id.toString()
+        }
         def appliedsites = new ArrayList()
         trans.each { appliedsites.add(it.site) }
-        siteslist = (siteslist.sort {it.lastUpdated}).reverse()
+        siteslist = (siteslist.sort { it.lastUpdated }).reverse()
         [siteslist: siteslist, appliedsites: appliedsites]
     }
 
@@ -60,8 +61,10 @@ class SiteController {
             if (user.sites.contains(site)) {
                 flash.message = "The site has been followed"
             } else {
-                def sitetrans = new SiteTrans(user:user,postscript: "Apply for enter", type: "AddNewUser", status: "Open", site: site, targetDomain: "user", targetId: user.id.toString())
-                if (SiteTrans.find { type == "AddNewUser" && status == "Open" && targetDomain == "user" && targetId == user.id.toString() && site == site }) {
+                def sitetrans = new SiteTrans(detail: "apply for follow", user: user, postscript: "Apply for enter", type: "AddNewUser", status: "Open", site: site, targetDomain: "user", targetId: user.id.toString())
+                if (SiteTrans.find {
+                    type == "AddNewUser" && status == "Open" && targetDomain == "user" && targetId == user.id.toString() && site == site
+                }) {
                     flash.message = "The apply has been sent before! Please wait for the confirm."
                     redirect(action: "mysites")
                     return
@@ -106,6 +109,13 @@ class SiteController {
         TagService.strToTagList(params.tags as String).each { newsite.addToTags(it) }
         if (newsite.validate()) {
             newsite.save()
+            def votesettings = new SiteSetting(site: newsite,name: "minvote",value: 1)
+            def bestsettings = new SiteSetting(site: newsite,name: "minbest",value: 1)
+            newsite.addToSettings(votesettings)
+            newsite.addToSettings(bestsettings)
+            newsite.save()
+            newsite.addToAdmins(user)
+            newsite.save()
             log.info("Site " + newsite.name + " has been saved successfully")
         } else {
             log.error("site " + newsite.name + " saved failed")
@@ -117,17 +127,112 @@ class SiteController {
         redirect(action: "mysites")
     }
 
-    def settings(){
-
+    def settings() {
+        def site = Site.findById(params.id as Long)
+        def user = User.findById(session.user.id as Long)
+        def minbest = SiteSetting.findBySiteAndName(site,"minbest")?.value
+        def minvote = SiteSetting.findBySiteAndName(site,"minvote")?.value
+        [site: site, user: user, isAdmin: site.admins.contains(user),minbest:minbest,minvote:minvote]
     }
 
-    def maintenance(){
+    def maintenance() {
         def site = Site.findById(params.id as Long)
         def user = User.findById(session.user.id as Long)
         def isAdmin = false
-        if (site.admins.contains(user)){
+        if (site.admins.contains(user)) {
             isAdmin = true
         }
-        return [isAdmin:isAdmin,site:site]
+        if(isAdmin){
+            def translist = SiteTrans.findAllBySiteAndStatus(site,"Open").toList().sort{it.dateCreated}
+           render(view: "maint_admin",model:[site:site,translist:translist])
+            return
+        }else{
+            return [site: site]
+        }
     }
+
+    def applyAdmin() {
+        def site = Site.findById(params.id as Long)
+        def user = User.findById(session.user.id as Long)
+        def sitebest = SiteSetting.findBySiteAndName(site,"minbest").value.toInteger()
+        def userbest = user.topics.findAll {
+            topic ->
+                (topic.votes.findAll {
+                    it.type == "upvote"
+                }).size() >= SiteSetting.findBySiteAndName(site,"minvote").value.toInteger()
+        }.size() + user.contents.findAll {
+            content ->
+                (content.votes.findAll {
+                    it.type == "upvote"
+                }).size() >= SiteSetting.findBySiteAndName(site,"minvote").value.toInteger()
+        }.size()
+        if (userbest >= sitebest  ) {
+            site.addToAdmins(user)
+            site.save()
+        }else{
+            flash.error = "You apply can not be processed, your best topics are " + userbest + " which is lower than " + sitebest
+        }
+        redirect(controller: "site", action: "maintenance", id: site.id)
+    }
+
+    def changeBasicSettings() {
+        def site = Site.findById(params.id as Long)
+        def user = User.findById(session.user.id as Long)
+
+        try {
+            params.minbest.toInteger()
+            params.minvote.toInteger()
+        }catch(Exception e){
+            flash.error = "Please input numbers"
+            redirect(action: "settings", id: site.id)
+        }
+
+        def oldminbest = SiteSetting.findBySiteAndName(site, "minbest")
+        def oldminvote = SiteSetting.findBySiteAndName(site, "minvote")
+        def hasError = false
+        def hasCreatedTrans = false
+        if (oldminvote == null && (params.minbest != null)) {
+            def minbesttrans = new SiteTrans(detail: params.minbest, type: "createSetting", status: "Open", targetDomain: "minbest", targetId: site.id, site: site, user: user)
+            if (!(minbesttrans.validate() && minbesttrans.save())) {
+                hasError = true
+                println(minbesttrans.errors)
+            }else{
+                hasCreatedTrans = true
+            }
+        } else if (params.minbest != oldminbest.value) {
+            def minbesttrans = new SiteTrans(detail: params.minbest, type: "changeSetting", status: "Open", targetDomain: "minbest", targetId: oldminbest.id, site: site, user: user)
+            if (!(minbesttrans.validate() && minbesttrans.save())) {
+                hasError = true
+                println(minbesttrans.errors)
+            }else{
+                hasCreatedTrans = true
+            }
+        }
+        if(oldminvote == null && (params.minvote != null) && !hasError){
+            def minvotetrans = new SiteTrans(detail: params.minvote, type: "createSetting", status: "Open", targetDomain: "minvote", targetId: site.id, site: site, user: user)
+            if (!(minvotetrans.validate() && minvotetrans.save())) {
+                hasError = true
+                println(minvotetrans.errors)
+            }else{
+                hasCreatedTrans = true
+            }
+        }else if ((params.minvote != oldminvote.value) && !hasError) {
+            def minvotetrans = new SiteTrans(detail: params.minvote, type: "changeSetting", status: "Open", targetDomain: "minvote", targetId: oldminvote.id, site: site, user: user)
+            if (!(minvotetrans.validate() && minvotetrans.save())) {
+                hasError = true
+                println(minvotetrans.errors)
+            }else{
+                hasCreatedTrans = true
+            }
+        }
+        if (hasError) {
+            flash.error = "Error occurs, please try again!"
+        } else if(hasCreatedTrans) {
+            flash.message = "Create transactions successfully!"
+        }else{
+            flash.message = "No changes is made"
+        }
+        redirect(action: "settings", id: site.id)
+    }
+
 }

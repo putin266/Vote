@@ -22,17 +22,32 @@
             <div class="page-header">
                 <h3>Results</h3>
             </div>
-            <g:render template="/topic/topiclist" model="[topics: topiclist]"></g:render>
+            <g:if test="${area == "user"}">
+                <g:each in="${userlist}">
+                    ${it.label}
+                    <br>
+                </g:each>
+            </g:if>
+            <g:else>
+                <g:if test="${topiclist?.isEmpty()}">
+                    No results
+                </g:if>
+                <g:else>
+                    <g:render template="/topic/topiclist" model="[topics: topiclist]"></g:render>
+                </g:else>
+            </g:else>
+
         </div>
 
         <div class="col-xs-3">
             <div class="page-header">
-                <h3>&nbsp</h3>
+                <h3>Search Area</h3>
             </div>
 
             <div class="list-group">
+                <g:link class="list-group-item" action="search" params="[area: 'topic', query: query]">Topics</g:link>
+                <g:link class="list-group-item" action="search" params="[area: 'user', query: query]">User</g:link>
             </div>
-
         </div>
     </div>
 </div>

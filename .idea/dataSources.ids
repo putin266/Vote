@@ -2573,6 +2573,7 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FK38A5EE5FC5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FK51D14099C73F5236" table="content_comment" schema="" catalog="vote" columns="comment_id"/>
+      <exported-key name="FK20D048D0C73F5236" table="site_trans_comment" schema="" catalog="vote" columns="comment_id"/>
       <exported-key name="FKDB3FC34FC73F5236" table="topic_comment" schema="" catalog="vote" columns="comment_id"/>
       <index name="FK38A5EE5FC5767E" unique="false" columns="user_id"/>
     </table>
@@ -2684,8 +2685,8 @@
       <index name="FKB9D05D5886B4F4FE" unique="false" columns="site_id"/>
     </table>
     <table name="site_tags" schema="" catalog="vote" type="TABLE">
-      <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="tag_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="site_id,tag_id"/>
       <foreign-key name="FKE036821168AF5256" columns="tag_id" ref-table="tag" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKE036821186B4F4FE" columns="site_id" ref-table="site" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2696,19 +2697,38 @@
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="version" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="date_created" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="detail" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="last_updated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="postscript" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="postscript" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="status" sqlType="VARCHAR" precision="6" scale="0" nullable="false" jdbcType="12"/>
       <column name="target_domain" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="target_id" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="type" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="target_id" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="type" sqlType="VARCHAR" precision="13" scale="0" nullable="false" jdbcType="12"/>
       <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FK26A163B086B4F4FE" columns="site_id" ref-table="site" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK26A163B0C5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK20D048D039185AB4" table="site_trans_comment" schema="" catalog="vote" columns="site_trans_comments_id"/>
+      <exported-key name="FKF78B7619B879BB7D" table="site_trans_vote" schema="" catalog="vote" columns="site_trans_votes_id"/>
       <index name="FK26A163B086B4F4FE" unique="false" columns="site_id"/>
       <index name="FK26A163B0C5767E" unique="false" columns="user_id"/>
+    </table>
+    <table name="site_trans_comment" schema="" catalog="vote" type="TABLE">
+      <column name="site_trans_comments_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="comment_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <foreign-key name="FK20D048D0C73F5236" columns="comment_id" ref-table="comment" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK20D048D039185AB4" columns="site_trans_comments_id" ref-table="site_trans" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK20D048D039185AB4" unique="false" columns="site_trans_comments_id"/>
+      <index name="FK20D048D0C73F5236" unique="false" columns="comment_id"/>
+    </table>
+    <table name="site_trans_vote" schema="" catalog="vote" type="TABLE">
+      <column name="site_trans_votes_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="vote_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <foreign-key name="FKF78B76192FA62E1E" columns="vote_id" ref-table="vote" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKF78B7619B879BB7D" columns="site_trans_votes_id" ref-table="site_trans" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKF78B76192FA62E1E" unique="false" columns="vote_id"/>
+      <index name="FKF78B7619B879BB7D" unique="false" columns="site_trans_votes_id"/>
     </table>
     <table name="site_user" schema="" catalog="vote" type="TABLE">
       <column name="site_admins_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
@@ -2759,8 +2779,8 @@
       <index name="FKDB3FC34FC73F5236" unique="false" columns="comment_id"/>
     </table>
     <table name="topic_tags" schema="" catalog="vote" type="TABLE">
-      <column name="topic_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="tag_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="topic_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="topic_id,tag_id"/>
       <foreign-key name="FKCE46052968AF5256" columns="tag_id" ref-table="tag" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKCE460529EEA7A736" columns="topic_id" ref-table="topic" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2783,6 +2803,7 @@
       <column name="last_updated" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="lastname" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="password_hash" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="FK38A5EE5FC5767E" table="comment" schema="" catalog="vote" columns="user_id"/>
@@ -2806,8 +2827,8 @@
       <index name="FKE693E610C5767E" unique="false" columns="user_id"/>
     </table>
     <table name="user_roles" schema="" catalog="vote" type="TABLE">
-      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="role_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="user_id,role_id"/>
       <foreign-key name="FK73429949C5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK734299495B9AB29E" columns="role_id" ref-table="role" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2827,8 +2848,8 @@
       <index name="FKD14EA5DCC5767E" unique="false" columns="user_id"/>
     </table>
     <table name="user_sites" schema="" catalog="vote" type="TABLE">
-      <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="site_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="user_id,site_id"/>
       <foreign-key name="FK734E149886B4F4FE" columns="site_id" ref-table="site" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK734E1498C5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -2845,6 +2866,7 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FK3752EAC5767E" columns="user_id" ref-table="user" ref-schema="" ref-catalog="vote" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FK3195BAF02FA62E1E" table="content_vote" schema="" catalog="vote" columns="vote_id"/>
+      <exported-key name="FKF78B76192FA62E1E" table="site_trans_vote" schema="" catalog="vote" columns="vote_id"/>
       <exported-key name="FKCE4723FA2FA62E1E" table="topic_vote" schema="" catalog="vote" columns="vote_id"/>
       <index name="FK3752EAC5767E" unique="false" columns="user_id"/>
     </table>

@@ -1,0 +1,15 @@
+<plugin name='quick-search' version='0.2.6' grailsVersion='2.0 &gt; *'>
+  <author>Matouš Kučera</author>
+  <authorEmail>matous.kucera@tado.com</authorEmail>
+  <title>Quick Search Plugin</title>
+  <description>
+Search plugin for domain class properties. Lightweight plugin which puts the ability for searching, it adds utility
+functions for building the search result into a string format representation sufficient for auto-complete as well as
+functions for listing the results based on the search query.
+</description>
+  <documentation>http://tadodotcom.github.io/grails-quick-search</documentation>
+  <type>QuickSearchGrailsPlugin</type>
+  <resources>
+    <resource>org.grails.plugins.quickSearch.QuickSearchService</resource>
+  </resources>
+</plugin>

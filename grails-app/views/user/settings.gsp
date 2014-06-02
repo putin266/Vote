@@ -26,7 +26,9 @@
             <div class="tab-content">
                 <g:render template="profile"></g:render>
 
-                <div class="tab-pane" id="account">...</div>
+                <div class="tab-pane" id="account">
+                    <g:link controller="test" action="testEmail">Test Email</g:link>
+                </div>
 
                 <g:render template="/user/password"></g:render>
 

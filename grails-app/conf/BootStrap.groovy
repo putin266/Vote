@@ -6,12 +6,12 @@ class BootStrap {
 
     def init = { servletContext ->
         if(!User.findByUsername("root@gmail.com")){
-            def user = new User(username: "root@gmail.com", passwordHash: new Sha512Hash("232101").toHex(),firstname: "root",lastname: "root")
+            def user = new User(status: "confirmed", username: "root@gmail.com", passwordHash: new Sha512Hash("232101").toHex(),firstname: "root",lastname: "root")
             user.addToPermissions("/")
             user.save()
         }
         if(!User.findByUsername("putin@gmail.com")){
-            def user = new User(username: "putin@gmail.com", passwordHash: new Sha512Hash("232101").toHex(),firstname: "putin",lastname: "john")
+            def user = new User(status: "confirmed",username: "putin@gmail.com", passwordHash: new Sha512Hash("232101").toHex(),firstname: "putin",lastname: "john")
             user.addToPermissions("/")
             user.save()
         }

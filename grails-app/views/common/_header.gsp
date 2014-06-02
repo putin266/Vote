@@ -16,7 +16,7 @@
             <div class="col-xs-4">
                 <g:form controller="search" action="search" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="text" placeholder="Search">
+                        <input type="text" class="form-control" name="query" placeholder="Search">
                     </div>
                     <g:submitButton type="submit" class="btn btn-default" name="Search">Search</g:submitButton>
                 </g:form>

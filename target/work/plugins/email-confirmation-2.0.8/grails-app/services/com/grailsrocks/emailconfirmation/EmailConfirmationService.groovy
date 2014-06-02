@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 package com.grailsrocks.emailconfirmation
- 
+
+import grails.plugin.mail.MailService
+
 import java.util.concurrent.ConcurrentHashMap
 
 import org.springframework.transaction.annotation.Transactional
@@ -41,7 +43,7 @@ class EmailConfirmationService implements ApplicationContextAware {
 	static EVENT_TYPE_INVALID = 'invalid'
 	static EVENT_TYPE_TIMEOUT = 'timeout'
 	
-	def mailService
+	def static mailService = new MailService()
 
 	boolean transactional = true
 

@@ -7,7 +7,7 @@ class ShiroSecurityFilters {
 
         all (uri : "/**"){
             before = {
-                 if(!controllerName || controllerName == ("platformTools")) {
+                 if(!controllerName || ["platformTools","emailConfirmation"].contains(controllerName)) {
                      return true
                  }
                  accessControl(){true}
