@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         <label>Title</label>
-                        <g:textField class="form-control" name="title" value=""></g:textField>
+                        <g:textField class="form-control" name="title" value="" required="true"></g:textField>
                     </div>
 
                     <div class="form-group">

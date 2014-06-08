@@ -29,5 +29,9 @@
         <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="position: absolute;top: 0;left: 0;width:36px;height: 29px;opacity: 0;"/>
     </div>
 </div>
-<div id="editor"></div>
-<g:hiddenField name="editorcontent" value=""></g:hiddenField>
+<div id="editor">
+    <g:applyCodec encodeAs="none">
+        ${value}
+    </g:applyCodec>
+</div>
+<g:hiddenField name="editorcontent" value="${value}"></g:hiddenField>

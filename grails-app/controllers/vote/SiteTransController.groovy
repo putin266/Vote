@@ -5,54 +5,71 @@ class SiteTransController {
        def index(){
            def siteTrans = SiteTrans.findById(params.id as Long)
            def user = User.findById(session.user.id as Long)
-           [siteTrans:siteTrans,user:user]
+           def canEdit = false
+           if(siteTrans.user.equals(user) || !siteTrans.site.admins.contains(user)){
+               canEdit = true
+           }
+           [siteTrans:siteTrans,user:user,canEdit:canEdit]
        }
 
-    def upvote() {
-        def user = User.findById(session.user.id as Long)
-        def siteTrans = SiteTrans.findById(params.id as Long)
+       def close(){
+           def siteTrans = SiteTrans.findById(params.id as Long)
+           def user = User.findById(session.user.id as Long)
+           println(siteTrans.user)
+           println(user)
+           if(siteTrans.user == user){
+               siteTrans.status = "Closed"
+               siteTrans.save()
+           }
+           redirect(controller:'site',action: 'maintenance',id: siteTrans.site.id)
+           return
+       }
 
-        if(siteTrans.status == "Open"){
-            def vote = siteTrans.votes.find { it.user.id == user.id }
-            if (vote) {
-                if (vote.type == "upvote") {
-                    vote.type = "novote"
-                    vote.save()
-                }else {
-                    vote.type = "upvote"
-                    vote.save()
-                    VoteService.fireTransaction(siteTrans)
+        def upvote() {
+            def user = User.findById(session.user.id as Long)
+            def siteTrans = SiteTrans.findById(params.id as Long)
+            def ispass = false
+            if(siteTrans.status == "Open"){
+                def vote = siteTrans.votes.find { it.user.id == user.id }
+                if (vote) {
+                    if (vote.type == "upvote") {
+                        vote.type = "novote"
+                        vote.save()
+                    }else {
+                        vote.type = "upvote"
+                        vote.save()
+                        ispass = VoteService.fireTransaction(siteTrans)
+                    }
+                } else {
+                    vote = new Vote(type: "upvote", user: user)
+                    siteTrans.addToVotes(vote)
+                    siteTrans.save()
+                    ispass = VoteService.fireTransaction(siteTrans)
                 }
-            } else {
-                vote = new Vote(type: "upvote", user: user)
-                siteTrans.addToVotes(vote)
-                siteTrans.save()
-                VoteService.fireTransaction(siteTrans)
             }
+            render(template: '/vote/sideVoteContent', model: [votetype: (siteTrans.votes.find{it.user.id == session.user.id})?.type ,candidate: siteTrans,type: "siteTrans"])
         }
-        render(template: '/vote/sideVoteContent', model: [votetype: (siteTrans.votes.find{it.user.id == session.user.id})?.type ,candidate: siteTrans,type: "siteTrans"])
-    }
 
-    def downvote() {
-        def user = User.findById(session.user.id as Long)
-        def siteTrans = SiteTrans.findById(params.id as Long)
+        def downvote() {
+            def user = User.findById(session.user.id as Long)
+            def siteTrans = SiteTrans.findById(params.id as Long)
 
-        if(siteTrans.status == "Open"){
-            def vote = siteTrans.votes.find { it.user.id == user.id }
-            if (vote) {
-                if (vote.type == "downvote") {
-                    vote.type = "novote"
-                    vote.save()
-                }else {
-                    vote.type = "downvote"
-                    vote.save()
+            if(siteTrans.status == "Open"){
+                def vote = siteTrans.votes.find { it.user.id == user.id }
+                if (vote) {
+                    if (vote.type == "downvote") {
+                        vote.type = "novote"
+                        vote.save()
+                    }else {
+                        vote.type = "downvote"
+                        vote.save()
+                    }
+                } else {
+                    vote = new Vote(type: "downvote", user: user)
+                    siteTrans.addToVotes(vote)
+                    siteTrans.save()
                 }
-            } else {
-                vote = new Vote(type: "downvote", user: user)
-                siteTrans.addToVotes(vote)
-                siteTrans.save()
             }
+            render(template: '/vote/sideVoteContent', model: [votetype: (siteTrans.votes.find{it.user.id == session.user.id})?.type,candidate: siteTrans,type: "siteTrans"])
         }
-        render(template: '/vote/sideVoteContent', model: [votetype: (siteTrans.votes.find{it.user.id == session.user.id})?.type,candidate: siteTrans,type: "siteTrans"])
-    }
 }

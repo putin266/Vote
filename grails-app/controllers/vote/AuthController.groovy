@@ -15,21 +15,21 @@ class AuthController {
 
     def login = {
         if (SecurityUtils.getSubject().authenticated){
-            redirect(uri: "/")
+            redirect(controller: 'site',action: 'mysites')
         }
         return [ username: params.username, rememberMe: (params.rememberMe != null), targetUri: params.targetUri ]
     }
 
     def register = {
         if (SecurityUtils.getSubject().authenticated){
-            redirect(uri: "/")
+            redirect(controller: 'site',action: 'mysites')
         }
         return [ username: params.username, targetUri: params.targetUri ]
     }
 
     def signIn = {
         if (SecurityUtils.getSubject().authenticated){
-            redirect(uri: "/")
+            redirect(controller: 'site',action: 'mysites')
         }
 
         def authToken = new UsernamePasswordToken(params.username, params.password as String)
@@ -41,7 +41,7 @@ class AuthController {
         
         // If a controller redirected to this page, redirect back
         // to it. Otherwise redirect to the root URI.
-        def targetUri = params.targetUri ?: "/"
+        def targetUri = params.targetUri ?: "/site/mysites"
         
         // Handle requests saved by Shiro filters.
         SavedRequest savedRequest = WebUtils.getSavedRequest(request)
@@ -105,7 +105,7 @@ class AuthController {
     def signUp = {
 
         if (SecurityUtils.getSubject().authenticated){
-            redirect(uri: "/")
+            redirect(controller: 'site',action: 'mysites')
         }
 
         def targetUri = params.targetUri ?: "/"
@@ -157,7 +157,7 @@ class AuthController {
         webRequest.getCurrentRequest().session = null
         session.removeAttribute("user")
         // For now, redirect back to the home page.
-        redirect(uri: "/")
+        redirect(action: 'login')
     }
 
     def unauthorized = {

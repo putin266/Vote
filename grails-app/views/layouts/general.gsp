@@ -21,14 +21,14 @@
 <g:render template="/common/header"></g:render>
 <g:if test="${flash.message}">
     <div class="container">
-        <div class="alert alert-info">
+        <div class="alert alert-info" data-dismiss="alert">
             ${flash.message}
         </div>
     </div>
 </g:if>
 <g:if test="${flash.get("error")}">
     <div class="container">
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" data-dismiss="alert">
             ${flash.get("error")}
         </div>
     </div>

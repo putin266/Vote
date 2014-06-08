@@ -22,7 +22,7 @@
                 <h3>Create a new site</h3>
             </div>
 
-            <g:form role="form" controller="site" action="create">
+            <g:form role="form" controller="site" action="create" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="sitetypeoptions">Site type</label>
                     <div id="sitetypeoptions" class="radio">
@@ -60,11 +60,11 @@
                     <label>Tags</label>
                     <g:textField  class="form-control"  name="tags" value="${params.tags}" required="required" />
                 </div>
-                %{--<div class="form-group">--}%
-                    %{--<label for="sitelogo">Site logo</label>--}%
-                    %{--<input type="file" id="sitelogo">--}%
-                    %{--<p class="help-block">Upload your site logo here.</p>--}%
-                %{--</div>--}%
+                <div class="form-group">
+                    <label for="sitelogo">Site logo</label>
+                    <input type="file" id="sitelogo" name="logo"  class="custom-file-input">
+                    <p class="help-block">Upload your site logo here.</p>
+                </div>
 
                 <div class="form-group">
                         <g:checkBox type="checkbox" name="agreed" value="${params.agreed}"/>

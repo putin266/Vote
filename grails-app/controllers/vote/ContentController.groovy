@@ -7,6 +7,23 @@ class ContentController {
         render(content.comments.size() + "&nbsp;Comments")
     }
 
+    def delete(){
+        def user = User.findById(session.user.id as Long)
+        def content = Content.findById(params.id as Long)
+        def site = content.topic.site
+        def sitetrans = new SiteTrans(detail: "Delete Content", user: user, postscript: "Delete Content", type: "DeleteContent", status: "Open", site: site, targetDomain: "content", targetId: content.id.toString())
+        if(!SiteTrans?.findByTypeAndStatusAndSiteAndTargetId("DeleteContent","Open",site,content.id)){
+            if(sitetrans.validate()){
+                sitetrans.save()
+                flash.message = "Site Transaction created successfully!"
+            }else{
+                flash.error = "Error occurs:" + sitetrans.errors
+            }
+        }
+        redirect(controller: "topic",action: "index",id: content.topic.id)
+        return
+    }
+
     def upvote() {
         def user = User.findById(session.user.id as Long)
         def content = Content.findById(params.id as Long)

@@ -9,4 +9,12 @@ class Vote {
     static constraints = {
         type(inList: ["upvote","downvote","novote"])
     }
+
+    def boolean equals(obj) {
+        if (!(obj instanceof Vote)) {
+            return false
+        }
+        Vote vote = (Vote) obj
+        return this.id == vote.id
+    }
 }

@@ -14,4 +14,12 @@ class Content {
     static mapping = {
         content type: 'text'
     }
+
+    def boolean equals(obj) {
+        if (!(obj instanceof Content)) {
+            return false
+        }
+        Content content = (Content) obj
+        return this.id == content.id
+    }
 }

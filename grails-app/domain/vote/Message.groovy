@@ -12,4 +12,12 @@ class Message {
         fromUser(nullable: true)
         fromSite(nullable: true)
     }
+
+    def boolean equals(obj) {
+        if (!(obj instanceof Message)) {
+            return false
+        }
+        Message msg = (Message) obj
+        return this.id == msg.id
+    }
 }

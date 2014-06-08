@@ -13,4 +13,16 @@ class Topic {
     static hasMany = [tags: Tag,contents: Content,comments: Comment,votes:Vote]
     static constraints = {
     }
+
+    static mapping = {
+        detail type: 'text'
+    }
+
+    def boolean equals(obj) {
+        if (!(obj instanceof Topic)) {
+            return false
+        }
+        Topic topic = (Topic) obj
+        return this.id == topic.id
+    }
 }

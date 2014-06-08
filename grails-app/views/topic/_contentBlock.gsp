@@ -4,7 +4,7 @@
     </g:if>
 <div class="clearfix">
     <span class="h5 text-info">${content.user.firstname}&nbsp;${content.user.lastname}</span>
-    <img class="media-object pull-right" data-src="holder.js/25x25/text:User" text="User">
+    <r:img uri="/images/avatar/user26.png" width="26" height="26" class="media-object pull-right"></r:img>
 </div>
 
 <div class="form-group">
@@ -21,7 +21,9 @@
            href="#comments${content.id}"
            onclick="changeCommentText('acomments${content.id}')">${content.comments.size()}&nbsp;Comments</a>
     </g:formRemote>
-    <g:render template="adminOptions"></g:render>
+    <g:if test="${isAdmin}">
+        <g:render template="adminOptions" model="[type:'content',targetUser:content.user.id,contentId:content.id]"></g:render>
+    </g:if>
 </div>
 <g:render template="/comment/comments" model="[comments: content.comments, id: content.id]"/>
 <hr>

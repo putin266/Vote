@@ -35,7 +35,9 @@
            href="#comments${'t' + topic.id}"
            onclick="changeCommentText('acomments${'t' + topic.id}')">${topic.comments.size()}&nbsp;Comments</a>
     </g:formRemote>
-    <g:render template="adminOptions"></g:render>
+    <g:if test="${isAdmin}">
+        <g:render template="adminOptions" model="[type:'topic',targetUser:topic.user.id,topicId:topic.id]"></g:render>
+    </g:if>
 </div>
 
 <g:render template="/comment/comments" model="[comments: topic.comments, id: 't' + topic.id]"/>
@@ -44,6 +46,6 @@
        contentlist = contentlist.sort {(it.votes.findAll {it.type=="downvote"}).size()-(it.votes.findAll {it.type=="upvote"}).size()}
 %>
 <g:each in="${contentlist}">
-    <g:render template="contentBlock" model="[content: it]"></g:render>
+    <g:render template="contentBlock" model="[content: it,isAdmin:isAdmin]"></g:render>
 </g:each>
 

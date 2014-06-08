@@ -36,6 +36,11 @@
                     </p>
                 </div>
             </div>
+            <g:if test="${canEdit}">
+                <div>
+                    <g:link action="close" id="${siteTrans.id}">Close Transaction</g:link>
+                </div>
+            </g:if>
 
             <g:render template="/comment/transComments" model="[comments: siteTrans.comments, id: 's' + siteTrans.id]"/>
 

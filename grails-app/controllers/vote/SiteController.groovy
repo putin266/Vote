@@ -1,13 +1,15 @@
 package vote
 
+import com.lucastex.grails.fileuploader.FileUploaderService
+
 class SiteController {
 
     def index() {
-        if (!params.id) {
+        def site = Site.findById(params.id)
+        def user = User.findById(session.user.id as Long)
+        if (!site) {
             redirect(action: "mysites")
         } else {
-            def site = Site.findById(params.id)
-            def user = User.findById(session.user.id as Long)
             def flag = site.users.contains(user)
             def topiclist = (site.topics.toList().sort { it.lastUpdated }).reverse()
             [site: site, accepted: flag, topiclist: topiclist]
@@ -16,11 +18,15 @@ class SiteController {
 
     def mysites() {
         def user = User.findById(session.user.id as Long)
+        if(!user){
+            redirect(controller: 'auth',action: 'login')
+            return
+        }
         def siteslist = user?.sites.toList()
         def trans = SiteTrans.findAll {
             type == "AddNewUser" && status == "Open" && targetDomain == "user" && targetId == user.id.toString()
         }
-        def appliedsites = new ArrayList()
+        def appliedsites = new ArrayList<Site>()
         trans.each { appliedsites.add(it.site) }
         siteslist = (siteslist.sort { it.lastUpdated }).reverse()
         [siteslist: siteslist, appliedsites: appliedsites]
@@ -33,6 +39,12 @@ class SiteController {
     def newtopic() {
         def user = User.findById(session.user.id as Long)
         def site = Site.findById(params.siteid as Long)
+        if(!(params.title && params.editorcontent)){
+            flash.error = "Title or Content can not be empty"
+            redirect(action: 'index',id: site.id)
+            return
+        }
+
         def flag = false
         if ("information".equals(params.topicType)) {
             flag = true
@@ -97,6 +109,7 @@ class SiteController {
             redirect(action: "newsite", params: params)
             return
         }
+        def fs = new FileUploaderService()
         def user = User.findById(session.user.id as Long)
         Site newsite = new Site(name: params.name, isPublic: params.sitetype, description: params.description)
         newsite.addToUsers(user)
@@ -106,6 +119,18 @@ class SiteController {
             redirect(action: "newsite", params: params)
             return
         }
+        def logo
+        if(!request.getFile('logo').isEmpty()){
+            try{
+                logo = fs.saveFile("logo",request.getFile("logo"),"logo" + System.currentTimeMillis(),new Locale("en"))
+            }catch (Exception e){
+                flash.error = e.message
+                redirect(action: "newsite", params: params)
+                return
+            }
+        }
+
+        newsite.logo = logo
         TagService.strToTagList(params.tags as String).each { newsite.addToTags(it) }
         if (newsite.validate()) {
             newsite.save()
@@ -138,6 +163,11 @@ class SiteController {
     def maintenance() {
         def site = Site.findById(params.id as Long)
         def user = User.findById(session.user.id as Long)
+
+        if(!site){
+            redirect(controller: 'site',action: 'mysites')
+            return
+        }
         def isAdmin = false
         if (site.admins.contains(user)) {
             isAdmin = true
@@ -154,6 +184,14 @@ class SiteController {
     def applyAdmin() {
         def site = Site.findById(params.id as Long)
         def user = User.findById(session.user.id as Long)
+
+        if((site.users.size() == 1)&&(site.users[0].equals(user))){
+            site.addToAdmins(user)
+            site.save()
+            redirect(controller: "site", action: "maintenance", id: site.id)
+            return
+        }
+
         def sitebest = SiteSetting.findBySiteAndName(site,"minbest").value.toInteger()
         def userbest = user.topics.findAll {
             topic ->
@@ -233,6 +271,49 @@ class SiteController {
             flash.message = "No changes is made"
         }
         redirect(action: "settings", id: site.id)
+    }
+
+    def changeRules(){
+        def site = Site.findById(params.id as Long)
+        def user = User.findById(session.user.id as Long)
+
+        if(params.editorcontent != site.rules){
+            def trans = new SiteTrans(type: "ChangeRules",status: "Open",targetDomain: "site",targetId: site.id,detail: params.editorcontent,postscript: "",site: site,user: user)
+            if(trans.validate()){
+                trans.save()
+                flash.message = "Change apply has been sent"
+            }else{
+                flash.error = "Save Failed"
+            }
+            redirect(action: 'settings',id: site.id)
+        }
+    }
+
+    def saveProfile(){
+        def site = Site.findById(params.id as Long)
+        def user = User.findById(session.user.id as Long)
+
+        if(params.oldsitetype != params.sitetype){
+
+        }
+
+        if(params.name != site.name){
+
+        }
+
+        if(params.description != site.description){
+
+        }
+
+        if(params.tags != params.oldtags){
+
+        }
+
+        if(!request.getFile('logo').isEmpty()){
+
+        }
+
+        redirect(action: 'settings',id:site.id)
     }
 
 }

@@ -23,11 +23,16 @@ class TagService {
                     } else {
                         tempTag.discard()
                         log.error("Tag" + it + " saved failed")
-                        flash.error = "Tag" + it + " saved failed"
                     }
                 }
             }
         }
         return taglist
+    }
+
+    def static tagsToStr(tags){
+        def str = ""
+        tags.each{str += it.name + " "}
+        return str
     }
 }

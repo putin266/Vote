@@ -63,6 +63,7 @@ grails.project.dependency.resolution = {
         compile ":pretty-time:2.1.3.Final-1.0.1"
         compile ":email-confirmation:2.0.8"
         compile ":quick-search:0.2.6"
+        compile ":file-uploader:1.2.1"
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.9" // or ":hibernate4:4.3.4"
         runtime ":database-migration:1.3.8"

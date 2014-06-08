@@ -5,7 +5,8 @@ class TopicController {
     def index() {
         def user = User.findById(session.user.id as Long)
         def topic = Topic.findById(params.id as Long)
-        [topic: topic, taglist: topic.tags.sort {it.lastUpdated}]
+        def isAdmin = topic.site.admins.contains(user)
+        [topic: topic, taglist: topic.tags.sort {it.lastUpdated},isAdmin:isAdmin]
     }
 
     def addContent() {
@@ -25,11 +26,28 @@ class TopicController {
             flash.error = "System error:" + content.errors
         }
         redirect(action: "index", id: topic.id)
+        return
     }
 
     def getCommentsSize() {
         def topic = Topic.findById(params.id as Long)
         render(topic.comments.size() + "&nbsp;Comments")
+    }
+
+    def delete(){
+        def user = User.findById(session.user.id as Long)
+        def topic = Topic.findById(params.id as Long)
+        def site = topic.site
+        def sitetrans = new SiteTrans(detail: "Delete Topic", user: user, postscript: "Delete Topic", type: "DeleteTopic", status: "Open", site: site, targetDomain: "topic", targetId: topic.id.toString())
+        if(!SiteTrans?.findByTypeAndStatusAndSiteAndTargetId("DeleteTopic","Open",site,topic.id)){
+            if(sitetrans.validate()){
+                sitetrans.save()
+                flash.message = "Site Transaction created successfully!"
+            }else{
+                flash.error = "Error occurs"
+            }
+        }
+        redirect(controller: "topic",action: "index",id: topic.id)
     }
 
     def upvote() {

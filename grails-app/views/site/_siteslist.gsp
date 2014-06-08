@@ -2,7 +2,12 @@
             <div class="media">
                 <div class="pull-left sitethumbnail">
                     <g:link class="thumbnail"  controller="site" action="index" id="${it.id}">
-                        <img class="media-object" data-src="holder.js/64x64/text:Site" text="site">
+                        <g:if test="${it.logo}">
+                            <img src="${createLink(controller:'fileUploader', action:'show', id:it.logo.id )}" width="64" height="64" class="media-object"></img>
+                        </g:if>
+                        <g:else>
+                            <r:img uri="/images/avatar/site64.png" width="64" height="64" class="media-object"></r:img>
+                        </g:else>
                     </g:link>
                     <g:if test="${follow}">
                         <g:link class="btn btn-primary btn-xs" controller="site" action="follow" id="${it.id}"><span class="glyphicon glyphicon-plus"></span>Follow</g:link>
@@ -20,7 +25,12 @@
         <div class="media">
             <div class="pull-left sitethumbnail">
                 <g:link class="thumbnail"  controller="site" action="index" id="${it.id}">
-                    <img class="media-object" data-src="holder.js/64x64/text:Site" text="site">
+                    <g:if test="${it.logo}">
+                        <img src="${createLink(controller:'fileUploader', action:'show', id:it.logo.id )}" width="64" height="64" class="media-object"></img>
+                    </g:if>
+                    <g:else>
+                        <r:img uri="/images/avatar/site64.png" width="64" height="64" class="media-object"></r:img>
+                    </g:else>
                 </g:link>
             </div>
             <div class="media-body">

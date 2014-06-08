@@ -10,4 +10,12 @@ class Tag {
     static constraints = {
         name(unique: true,nullable: false,blank: false)
     }
+
+    def boolean equals(obj) {
+        if (!(obj instanceof Tag)) {
+            return false
+        }
+        Tag tag = (Tag) obj
+        return this.id == tag.id
+    }
 }

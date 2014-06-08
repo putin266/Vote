@@ -15,22 +15,18 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-                <li><a href="#account" data-toggle="tab">Account</a></li>
                 <li><a href="#password" data-toggle="tab">Password</a></li>
                 <li><a href="#messages" data-toggle="tab">Messages</a></li>
-                <li><a href="#email" data-toggle="tab">Email</a></li>
-                <li><a href="#settings" data-toggle="tab">Settings</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <g:render template="profile"></g:render>
-
+                <g:render template="profile" model="[user:user]"></g:render>
                 <div class="tab-pane" id="account">
                     <g:link controller="test" action="testEmail">Test Email</g:link>
                 </div>
 
-                <g:render template="/user/password"></g:render>
+                <g:render template="/user/password" model="[user:user]"></g:render>
 
                 <div class="tab-pane" id="messages">...</div>
 

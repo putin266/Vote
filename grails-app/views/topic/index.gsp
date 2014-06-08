@@ -19,7 +19,7 @@
         </div>
         <div class="col-xs-8">
             <g:render template="/common/tagsbar" model="[tags:taglist]" ></g:render>
-            <g:render template="topicmaint" model="[topic:topic]"/>
+            <g:render template="topicmaint" model="[topic:topic,isAdmin:isAdmin]"/>
         </div>
         <div class="col-xs-3">
             <div class="page-header">
