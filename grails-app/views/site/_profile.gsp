@@ -71,7 +71,7 @@
             <div class="text-center">
                 <g:if test="${site.logo}">
                     <img src="${createLink(controller: 'fileUploader', action: 'show', id: site.logo.id)}"
-                         width="100" height="100" style="margin: auto;" class="media-object"></img>
+                         width="100" height="100" style="margin: auto;" class="media-object"/>
                 </g:if>
                 <g:else>
                     <r:img uri="/images/avatar/avatar100.png" width="100" height="100"></r:img>

@@ -21,6 +21,12 @@
     <g:else>
         ${it.contents.size()}&nbsp;Comments
     </g:else>
-    <i class="fa fa-plus"></i>Follow Topic
+    <g:if test="${it.fusers.contains(user)}">
+        <g:link controller="topic" action="unfollowTopic" id="${it.id}"><i class="fa fa-minus"></i>&nbsp;Unfollow Topic</g:link>
+    </g:if>
+    <g:else>
+        <g:link controller="topic" action="followTopic" id="${it.id}"><i class="fa fa-plus"></i>&nbsp;Follow Topic</g:link>
+    </g:else>
+
     <hr>
 </g:each>

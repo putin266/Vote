@@ -7,7 +7,12 @@ class UserController {
 
     def index() {
         def user = User.findById(params.id as Long)
-        [user:user]
+        def topiclist = Topic.findAllByUser(user).toList()
+        topiclist.sort {it.lastUpdated}
+        if(topiclist.size() > 20){
+            topiclist = topiclist.subList(0,19)
+        }
+        [user:user,topiclist:topiclist]
     }
 
     def settings(){

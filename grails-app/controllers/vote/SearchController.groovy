@@ -13,7 +13,7 @@ class SearchController {
         def usearchParams = [sort: 'lastUpdated', order: 'asc', max: 10, offset: 0]
         def usearchProperties = [firstname: "firstname",lastname:"lastname",username:"username"]
         def uautocompleteTemplate = 'Name: ${firstname} ${lastname} Email:${username}'
-        def userlist = quickSearchService.searchAutoComplete(domainClass: User, searchParams: usearchParams,
+        def userStrList = quickSearchService.searchAutoComplete(domainClass: User, searchParams: usearchParams,
                 searchProperties: usearchProperties, autocompleteTemplate: uautocompleteTemplate, query: query)
         def tsearchParams = [sort: 'lastUpdated', order: 'asc', max: 10, offset: 0]
         def tsearchProperties = [detail: "detail",title:"title"]
@@ -21,7 +21,9 @@ class SearchController {
         def topicstrlist = quickSearchService.searchAutoComplete(domainClass: Topic, searchParams: tsearchParams,
                 searchProperties: tsearchProperties, autocompleteTemplate: tautocompleteTemplate, query: query)
         def topiclist = new ArrayList()
+        def userlist = new ArrayList()
         topicstrlist.each {topiclist.add(Topic.findById(it.id))}
+        userStrList.each {userlist.add(User.findById(it.id))}
         return [topiclist:topiclist,userlist:userlist,query: query,area:params.area]
     }
 }

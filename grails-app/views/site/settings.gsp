@@ -34,7 +34,7 @@
             <div class="tab-content">
                 <g:render template="board" model="[site:site,isAdmin: isAdmin]"></g:render>
 
-                <g:render template="basic_settings" model="[site: site, user: user, isAdmin: isAdmin,minvote:minvote,minbest:minbest]"></g:render>
+                <g:render template="basic_settings" model="[ChangeLogo:ChangeLogo,ChangeTags:ChangeTags,ChangeDesc:ChangeDesc,ChangeType:ChangeType,ChangeName:ChangeName,ChangeRules:ChangeRules,DeleteContent:DeleteContent,DeleteTopic:DeleteTopic,DeleteUser:DeleteUser,createSetting:createSetting,AddNewUser: AddNewUser, changeSetting: changeSetting,site: site, user: user, isAdmin: isAdmin,minvote:minvote,minbest:minbest]"></g:render>
 
                 <g:render template="profile" model="[site:site,isAdmin: isAdmin]"></g:render>
             </div>

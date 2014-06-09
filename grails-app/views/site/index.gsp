@@ -22,7 +22,7 @@
             <div class="page-header">
                 <h3>Topics</h3>
             </div>
-            <g:render template="/topic/topiclist" model="[topics: topiclist]"></g:render>
+            <g:render template="/topic/topiclist" model="[topics: topiclist,user:user]"></g:render>
         </div>
 
         <div class="col-xs-3">

@@ -14,8 +14,8 @@ class User {
     UFile avatar
     Date dateCreated
     Date lastUpdated
-    static hasMany = [roles: Role, permissions: String, sites: Site, siteTranses: SiteTrans, contents: Content, votes: Vote, comments: Comment, topics: Topic, sentMsgs: Message, inboxMsgs: Message,settings:UserSetting]
-    static mappedBy = [sites: "users",sentMsgs: "fromUser",inboxMsgs: "toUser"]
+    static hasMany = [roles: Role, permissions: String, sites: Site, siteTranses: SiteTrans, contents: Content, votes: Vote, comments: Comment, topics: Topic, sentMsgs: Message, inboxMsgs: Message,settings:UserSetting,ftopics: Topic]
+    static mappedBy = [sites: "users",sentMsgs: "fromUser",inboxMsgs: "toUser",topics:"user",ftopics: "fusers"]
     static constraints = {
         username(nullable: false, blank: false, unique: true, email: true)
         passwordHash(nullable: false, blank: false)

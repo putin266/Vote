@@ -1,5 +1,7 @@
 package vote
 
+import com.lucastex.grails.fileuploader.FileUploaderService
+import com.lucastex.grails.fileuploader.UFile
 import grails.transaction.Transactional
 
 @Transactional
@@ -29,8 +31,117 @@ class VoteService {
             case "ChangeRules":
                 flag = changeRules(trans)
                 break
+            case "ChangeType":
+                flag = changeType(trans)
+                break
+            case "ChangeName":
+                flag = changeName(trans)
+                break
+            case "ChangeDesc":
+                flag = changeDesc(trans)
+                break
+            case "ChangeTags":
+                flag = changeTags(trans)
+                break
+            case "ChangeLogo":
+                flag = changeLogo(trans)
+                break
         }
         return flag
+    }
+
+    def private static changeLogo(SiteTrans trans){
+        def ispass = false
+        def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
+        if (upvotes == trans.site.admins.size()){
+            ispass = true
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+            ispass = true
+        }
+        if(ispass){
+            def oldlogo = trans.site.logo
+            trans.site.logo = UFile.findById(trans.detail as Long)
+            trans.site.save()
+            if(oldlogo){
+                def fs = new FileUploaderService()
+                fs.deleteFile(oldlogo.id)
+            }
+            trans.status = "Closed"
+            trans.save()
+        }
+        return ispass
+    }
+
+    def private static changeTags(SiteTrans trans){
+        def ispass = false
+        def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
+        if (upvotes == trans.site.admins.size()){
+            ispass = true
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+            ispass = true
+        }
+        if(ispass){
+            trans.site.tags = TagService.strToTagList(trans.detail).toSet()
+            trans.site.save()
+            trans.status = "Closed"
+            trans.save()
+        }
+        return ispass
+    }
+
+    def private static changeDesc(SiteTrans trans){
+        def ispass = false
+        def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
+        if (upvotes == trans.site.admins.size()){
+            ispass = true
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+            ispass = true
+        }
+        if(ispass){
+            trans.site.description = trans.detail
+            trans.site.save()
+            trans.status = "Closed"
+            trans.save()
+        }
+        return ispass
+    }
+
+    def private static changeName(SiteTrans trans){
+        def ispass = false
+        def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
+        if (upvotes == trans.site.admins.size()){
+            ispass = true
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+            ispass = true
+        }
+        if(ispass){
+            trans.site.name = trans.detail
+            trans.site.save()
+            trans.status = "Closed"
+            trans.save()
+        }
+        return ispass
+    }
+
+    def private static changeType(SiteTrans trans){
+        def ispass = false
+        def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
+        if (upvotes == trans.site.admins.size()){
+            ispass = true
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+            ispass = true
+        }
+        if(ispass){
+            if(trans.detail == "1"){
+                trans.site.isPublic = true
+            }else{
+                trans.site.isPublic = false
+            }
+            trans.site.save()
+            trans.status = "Closed"
+            trans.save()
+        }
+        return ispass
     }
 
     def private static changeRules(SiteTrans trans){

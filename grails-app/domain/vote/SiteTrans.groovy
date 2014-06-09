@@ -14,7 +14,7 @@ class SiteTrans {
     static belongsTo = [Site,User]
     static hasMany = [votes:Vote,comments:Comment]
     static constraints = {
-        type(inList: ["ChangeRules","AddNewUser","changeSetting","createSetting","DeleteUser","DeleteTopic","DeleteContent"],blank: false)
+        type(blank: false)
         status(inList: ["Closed","Open"],blank: false)
         detail(nullable: true)
         postscript(nullable: true)

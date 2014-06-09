@@ -50,6 +50,26 @@ class TopicController {
         redirect(controller: "topic",action: "index",id: topic.id)
     }
 
+    def followTopic(){
+        def user = User.findById(session.user.id as Long)
+        def topic = Topic.findById(params.id as Long)
+        if(!user.ftopics.contains(topic)){
+            user.addToFtopics(topic)
+            user.save()
+        }
+        redirect(controller: 'site',action: 'index',id: topic.site.id)
+    }
+
+    def unfollowTopic(){
+        def user = User.findById(session.user.id as Long)
+        def topic = Topic.findById(params.id as Long)
+        if(user.ftopics.contains(topic)){
+            user.removeFromFtopics(topic)
+            user.save()
+        }
+        redirect(controller: 'site',action: 'index',id: topic.site.id)
+    }
+
     def upvote() {
         def user = User.findById(session.user.id as Long)
         def topic = Topic.findById(params.id as Long)

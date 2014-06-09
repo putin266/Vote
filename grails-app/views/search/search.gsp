@@ -23,17 +23,19 @@
                 <h3>Results</h3>
             </div>
             <g:if test="${area == "user"}">
-                <g:each in="${userlist}">
-                    ${it.label}
-                    <br>
-                </g:each>
+                <g:if test="${userlist?.isEmpty()}">
+                    No results
+                </g:if>
+                <g:else>
+                    <g:render template="userList" model="[userlist: userlist]"></g:render>
+                </g:else>
             </g:if>
             <g:else>
                 <g:if test="${topiclist?.isEmpty()}">
                     No results
                 </g:if>
                 <g:else>
-                    <g:render template="/topic/topiclist" model="[topics: topiclist]"></g:render>
+                    <g:render template="/topic/plainTopicList" model="[topics: topiclist]"></g:render>
                 </g:else>
             </g:else>
 

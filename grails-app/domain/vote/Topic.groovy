@@ -10,7 +10,7 @@ class Topic {
     Site site
     User user
     static belongsTo = [Site,User]
-    static hasMany = [tags: Tag,contents: Content,comments: Comment,votes:Vote]
+    static hasMany = [tags: Tag,contents: Content,comments: Comment,votes:Vote,fusers:User]
     static constraints = {
     }
 

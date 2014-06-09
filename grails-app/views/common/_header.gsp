@@ -57,7 +57,7 @@
             <div class="col-xs-2">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="navbar-text">
-                        <div class="login-info">Hi&nbsp;<g:link style="padding:0" controller="user" action="settings"
+                        <div class="login-info">Hi&nbsp;<g:link style="padding:0" controller="user" action="index"
                                              id="${session.user.id}">${session.user.firstname}</g:link>
                         <g:link controller="auth" action="signOut">Logout</g:link>
                         </div>
