@@ -22,7 +22,11 @@
             <div class="page-header">
                 <h3>Topics</h3>
             </div>
-            <g:render template="/topic/topiclist" model="[topics: topiclist,user:user]"></g:render>
+            <g:form>
+                <div id="topiclist">
+                    <g:render template="/topic/topiclist" model="[topics: topiclist, user: user, page: page,hasMore:hasMore,domain: site]"/>
+                </div>
+            </g:form>
         </div>
 
         <div class="col-xs-3">
@@ -34,17 +38,19 @@
                 <g:if test="${accepted}">
 
                     <a class="list-group-item" data-toggle="modal"
-                            data-target="#newTopic"><i class="fa fa-tag"></i>&nbsp;Create Topic</a>
+                       data-target="#newTopic"><i class="fa fa-tag"></i>&nbsp;Create Topic</a>
 
-                    <g:render template="/site/newtopic" model="[site:site]"></g:render>
+                    <g:render template="/site/newtopic" model="[site: site]"/>
 
-                    <g:link class="list-group-item" action="settings" id="${site.id}"><i class="fa fa-gear"></i>&nbsp;Site Settings</g:link>
-                    <g:link class="list-group-item" id="${site.id}" action="maintenance"><i class="fa fa-gavel"></i>&nbsp;Site Maintenance</g:link>
+                    <g:link class="list-group-item" action="settings" id="${site.id}"><i
+                            class="fa fa-gear"></i>&nbsp;Site Settings</g:link>
+                    <g:link class="list-group-item" id="${site.id}" action="maintenance"><i
+                            class="fa fa-gavel"></i>&nbsp;Site Maintenance</g:link>
                 </g:if>
-                <g:else>
+                <g:elseif test="${site.isPublic}">
                     <g:link class="list-group-item" controller="site" action="follow" id="${site.id}"><i
                             class="fa fa-plus"></i>&nbsp;Follow</g:link>
-                </g:else>
+                </g:elseif>
             </div>
 
         </div>

@@ -7,12 +7,40 @@ class SiteController {
     def index() {
         def site = Site.findById(params.id)
         def user = User.findById(session.user.id as Long)
+        if(!site.isPublic && !site.users.contains(user)){
+            redirect(action: 'mysites')
+            return
+        }
+        def hasMore = false
+        def page = 1
         if (!site) {
             redirect(action: "mysites")
         } else {
             def flag = site.users.contains(user)
             def topiclist = (site.topics.toList().sort { it.lastUpdated }).reverse()
-            [site: site, accepted: flag, topiclist: topiclist,user:user]
+            if (topiclist.size() > 10) {
+                hasMore = true
+                topiclist = topiclist.subList(0, 10)
+            }
+            [site: site, accepted: flag, topiclist: topiclist, user: user, hasMore: hasMore, page: page]
+        }
+    }
+
+    def moreTopics() {
+        def site = Site.findById(params.id)
+        def user = User.findById(session.user.id as Long)
+        def hasMore = false
+        def page = params.page as Integer
+        page++
+        if (!site) {
+            redirect(action: "mysites")
+        } else {
+            def topiclist = (site.topics.toList().sort { it.lastUpdated }).reverse()
+            if (topiclist.size() > (10 * page)) {
+                hasMore = true
+                topiclist = topiclist.subList(0, 10 * page)
+            }
+            render(view: '/topic/_topiclist', model: [topics: topiclist, user: user, page: page,hasMore: hasMore,domain: site])
         }
     }
 
@@ -171,7 +199,7 @@ class SiteController {
         def ChangeTags = SiteSetting.findBySiteAndName(site, "ChangeTags")?.value
         def ChangeLogo = SiteSetting.findBySiteAndName(site, "ChangeLogo")?.value
 
-        [ChangeLogo:ChangeLogo,ChangeTags:ChangeTags,ChangeDesc:ChangeDesc,ChangeType:ChangeType,ChangeName:ChangeName,ChangeRules:ChangeRules,DeleteContent:DeleteContent,DeleteTopic:DeleteTopic,DeleteUser:DeleteUser,createSetting:createSetting,site: site, user: user, isAdmin: site.admins.contains(user), minbest: minbest, minvote: minvote, AddNewUser: AddNewUser, changeSetting: changeSetting]
+        [ChangeLogo: ChangeLogo, ChangeTags: ChangeTags, ChangeDesc: ChangeDesc, ChangeType: ChangeType, ChangeName: ChangeName, ChangeRules: ChangeRules, DeleteContent: DeleteContent, DeleteTopic: DeleteTopic, DeleteUser: DeleteUser, createSetting: createSetting, site: site, user: user, isAdmin: site.admins.contains(user), minbest: minbest, minvote: minvote, AddNewUser: AddNewUser, changeSetting: changeSetting]
     }
 
     def maintenance() {

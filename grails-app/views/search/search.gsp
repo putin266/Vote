@@ -27,7 +27,7 @@
                     No results
                 </g:if>
                 <g:else>
-                    <g:render template="userList" model="[userlist: userlist]"></g:render>
+                    <g:render template="userList" model="[userlist: userlist]"/>
                 </g:else>
             </g:if>
             <g:else>
@@ -35,7 +35,11 @@
                     No results
                 </g:if>
                 <g:else>
-                    <g:render template="/topic/plainTopicList" model="[topics: topiclist]"></g:render>
+                    <g:form>
+                        <div id="topiclist">
+                            <g:render template="/topic/plainTopicList" model="[user:user,topics: topiclist,page: page, hasMoreTopics: hasMoreTopics, query: query]"/>
+                        </div>
+                    </g:form>
                 </g:else>
             </g:else>
 

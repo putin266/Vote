@@ -9,6 +9,11 @@ class ExploreController {
         def siteslist = Site.list().sort {
             -it.users.size()
         }
+        def privatesitelist = new ArrayList()
+        siteslist.each {if(!it.isPublic){
+            privatesitelist.add(it)
+        }}
+        siteslist.removeAll(privatesitelist)
         def user = User.findById(session.user.id as Long)
         siteslist.removeAll(user?.sites)
         user?.siteTranses?.each {

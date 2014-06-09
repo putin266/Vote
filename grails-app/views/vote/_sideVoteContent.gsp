@@ -19,7 +19,7 @@
     </g:else>
     <g:submitToRemote class="hidden" id="${'uvbtn' + type + candidate.id}"
                       url="[controller: type, action: 'upvote', id: candidate.id]"
-                      update="${'sv' + type + candidate.id}"></g:submitToRemote>
+                      update="${'sv' + type + candidate.id}"/>
 </div>
 
 <div id="${'dv' + type + candidate.id}">
@@ -39,5 +39,5 @@
     </g:else>
     <g:submitToRemote class="hidden" id="${'dvbtn' + type + candidate.id}"
                       url="[controller: type, action: 'downvote', id: candidate.id]"
-                      update="${'sv' + type + candidate.id}"></g:submitToRemote>
+                      update="${'sv' + type + candidate.id}"/>
 </div>

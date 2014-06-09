@@ -22,7 +22,12 @@
             <div class="page-header">
                 <h3>New Feed</h3>
             </div>
-            <g:render template="/topic/topiclist" model="[topics: topiclist,user:user]"></g:render>
+            <g:form>
+                <div id="topiclist">
+                    <g:render template="/topic/topiclist"
+                              model="[topics: topiclist, user: user, page: page, hasMore: hasMore, domain: user]"/>
+                </div>
+            </g:form>
         </div>
 
         <div class="col-xs-3">

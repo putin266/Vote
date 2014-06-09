@@ -30,3 +30,9 @@
 
     <hr>
 </g:each>
+<input type="hidden" name="page" value="${page}">
+<g:if test="${hasMore}">
+        <g:submitToRemote class="btn btn-default form-control" value="More"
+                          url="[controller: controllerName, action: 'moreTopics', id: domain.id]"
+                          update="topiclist"/>
+</g:if>

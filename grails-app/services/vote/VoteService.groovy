@@ -235,7 +235,7 @@ class VoteService {
         }
 
         if(ispass){
-            trans.site.addToUsers(trans.user)
+            trans.site.addToUsers(User.findById(trans.targetId as Long))
             trans.site.save()
             trans.status = "Closed"
             trans.save()

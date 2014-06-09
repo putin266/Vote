@@ -6,6 +6,7 @@ class Message {
     Site fromSite
     String content
     String type
+    Topic topic
     Date dateCreated
     static belongsTo = [User]
     static constraints = {

@@ -55,7 +55,12 @@
                 <br>
 
                 <div class="panel-body">
-                    <g:render template="/topic/plainTopicList" model="[topics: topiclist]"></g:render>
+                    <g:form>
+                        <div id="topiclist">
+                            <g:render template="/topic/plainTopicList"
+                                      model="[topics: topiclist, page: page, hasMoreTopics: hasMoreTopics, query: user.id]"></g:render>
+                        </div>
+                    </g:form>
                 </div>
             </div>
         </div>
@@ -70,6 +75,25 @@
                             class="fa fa-gear"></i>&nbsp;User Settings</g:link>
                 </div>
             </g:if>
+            <g:else>
+                <div class="panel">
+                    <div class="panel-body">
+                        <g:form controller="user" action="inviteToSite" id="${user.id}">
+                            <div class="form-group">
+                                Invite User To
+                            </div>
+
+                            <div class="form-group">
+                                <g:select from="${inviteToSites}" optionKey="id" optionValue="name" class="form-control"
+                                          name="siteid">
+                                </g:select>
+                            </div>
+                            <g:submitButton class="btn btn-primary" name="submit" value="Invite"></g:submitButton>
+                        </g:form>
+                    </div>
+                </div>
+            </g:else>
+
         </div>
     </div>
 </div>
