@@ -55,7 +55,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"ChangeLogo")?.value?.toInteger()){
             ispass = true
         }
         if(ispass){
@@ -77,7 +77,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"ChangeTags")?.value?.toInteger()){
             ispass = true
         }
         if(ispass){
@@ -94,7 +94,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"ChangeDesc")?.value?.toInteger()){
             ispass = true
         }
         if(ispass){
@@ -111,7 +111,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"ChangeName")?.value?.toInteger()){
             ispass = true
         }
         if(ispass){
@@ -128,7 +128,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"ChangeType")?.value?.toInteger()){
             ispass = true
         }
         if(ispass){
@@ -149,7 +149,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"ChangeRules")?.value?.toInteger()){
             ispass = true
         }
         if(ispass){
@@ -166,7 +166,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"DeleteContent")?.value?.toInteger()){
             ispass = true
         }
 
@@ -184,7 +184,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"DeleteTopic")?.value?.toInteger()){
             ispass = true
         }
 
@@ -202,7 +202,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"DeleteUser")?.value?.toInteger()){
             ispass = true
         }
 
@@ -230,7 +230,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"AddNewUser")?.value?.toInteger()){
             ispass = true
         }
 
@@ -248,7 +248,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"changeSetting")?.value?.toInteger()){
             ispass = true
         }
 
@@ -267,7 +267,7 @@ class VoteService {
         def upvotes = (trans.votes.findAll {it.type == "upvote"}).size()
         if (upvotes == trans.site.admins.size()){
             ispass = true
-        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"")?.value?.toInteger()){
+        }else if (upvotes >= SiteSetting.findBySiteAndName(trans.site,"createSetting")?.value?.toInteger()){
             ispass = true
         }
 

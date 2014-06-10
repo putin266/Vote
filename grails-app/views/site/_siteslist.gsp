@@ -3,10 +3,10 @@
                 <div class="pull-left sitethumbnail">
                     <g:link class="thumbnail"  controller="site" action="index" id="${it.id}">
                         <g:if test="${it.logo}">
-                            <img src="${createLink(controller:'fileUploader', action:'show', id:it.logo.id )}" width="64" height="64" class="media-object"></img>
+                            <img src="${createLink(controller:'fileUploader', action:'show', id:it.logo.id )}" width="64" height="64" class="media-object"/>
                         </g:if>
                         <g:else>
-                            <r:img uri="/images/avatar/site64.png" width="64" height="64" class="media-object"></r:img>
+                            <r:img uri="/images/avatar/site64.png" width="64" height="64" class="media-object"/>
                         </g:else>
                     </g:link>
                     <g:if test="${follow}">
@@ -26,10 +26,10 @@
             <div class="pull-left sitethumbnail">
                 <g:link class="thumbnail"  controller="site" action="index" id="${it.id}">
                     <g:if test="${it.logo}">
-                        <img src="${createLink(controller:'fileUploader', action:'show', id:it.logo.id )}" width="64" height="64" class="media-object"></img>
+                        <img src="${createLink(controller:'fileUploader', action:'show', id:it.logo.id )}" width="64" height="64" class="media-object"/>
                     </g:if>
                     <g:else>
-                        <r:img uri="/images/avatar/site64.png" width="64" height="64" class="media-object"></r:img>
+                        <r:img uri="/images/avatar/site64.png" width="64" height="64" class="media-object"/>
                     </g:else>
                 </g:link>
             </div>

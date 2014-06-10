@@ -11,7 +11,7 @@ class ContentController {
         def user = User.findById(session.user.id as Long)
         def content = Content.findById(params.id as Long)
         def site = content.topic.site
-        def sitetrans = new SiteTrans(detail: "Delete Content", user: user, postscript: "Delete Content", type: "DeleteContent", status: "Open", site: site, targetDomain: "content", targetId: content.id.toString())
+        def sitetrans = new SiteTrans(detail: content.topic.id, user: user, postscript: "Delete Content", type: "DeleteContent", status: "Open", site: site, targetDomain: "content", targetId: content.id.toString())
         if(!SiteTrans?.findByTypeAndStatusAndSiteAndTargetId("DeleteContent","Open",site,content.id)){
             if(sitetrans.validate()){
                 sitetrans.save()
